@@ -1,0 +1,76 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import EmailSignup from '../../components/EmailSignup.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getPosts } from '../../data/posts';
+import { getProduct } from '../../data/products';
+import { SITE } from '../../data/site';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post, posts } }));
+}
+
+const { post, posts } = Astro.props;
+const { Content } = await render(post);
+const { title, description, category, heroImage, pinImage, pubDate } = post.data;
+const product = getProduct(post.data.product);
+const related = posts.filter((p) => p.id !== post.id && p.data.category === category).slice(0, 2);
+const date = pubDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+---
+
+<Base title={title} description={description} image={pinImage ?? heroImage}>
+  <article class="read post">
+    <header>
+      <p class="eyebrow">{category}</p>
+      <h1>{title}</h1>
+      <p class="muted small">{date}</p>
+      {product && (
+        <p class="jump">
+          Looking for the printable? <a href={product.etsyUrl || SITE.etsyShopUrl} target="_blank" rel="noopener">Get it on Etsy</a>
+        </p>
+      )}
+    </header>
+
+    {heroImage && <img class="hero" src={heroImage} alt="" width="1200" height="800" />}
+    {pinImage && <img class="pin" src={pinImage} alt={title} width="1000" height="1500" data-pin-description={description} />}
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    {product && (
+      <>
+        <h2>Get the printable</h2>
+        <ProductCard product={product} wide />
+      </>
+    )}
+
+    <EmailSignup />
+
+    {related.length > 0 && (
+      <section>
+        <h2>More {category} ideas</h2>
+        <div class="grid grid--3">
+          {related.map((p) => <PostCard post={p} />)}
+        </div>
+      </section>
+    )}
+  </article>
+</Base>
+
+<style>
+  .post { padding-top: 48px; }
+  header h1 { margin-bottom: 0.2em; }
+  .jump {
+    background: var(--cream-deep);
+    border-radius: var(--radius);
+    padding: 10px 16px;
+    font-size: 0.95rem;
+  }
+  .hero { border-radius: var(--radius); margin: 24px 0; }
+  /* Pinterest image: in the page for the Pin It button, hidden from readers */
+  .pin { display: none; }
+</style>

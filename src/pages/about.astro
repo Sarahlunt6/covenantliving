@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site';
+---
+
+<Base title="About" description="Covenant Living makes gospel-centered printables for families, missionaries, and Primary leaders.">
+  <section class="read section prose">
+    <p class="eyebrow">About</p>
+    <h1>Hi, I'm Sarah</h1>
+    <!-- DRAFT: replace with your story in your own words. Keep it to 3–5 short paragraphs. -->
+    <p>
+      I'm Sarah, the maker behind Covenant Living, based in St. George, Utah. I design
+      printables that make it easier to bring the gospel into everyday life: Come Follow Me helps for families,
+      keepsakes for missionary moms, and ready-to-use resources for Primary leaders.
+    </p>
+    <p>[Your story: why you started Covenant Living and who you make it for.]</p>
+    <p>
+      Every printable is an instant download through my <a href={SITE.etsyShopUrl} target="_blank" rel="noopener">Etsy shop</a>,
+      and the blog shares ideas you can use even if you never buy a thing.
+    </p>
+    <hr class="divider" />
+    <p><a class="btn" href="/free-printable/">Get a free printable</a></p>
+  </section>
+</Base>

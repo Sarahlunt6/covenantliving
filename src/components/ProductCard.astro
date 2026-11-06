@@ -1,0 +1,64 @@
+---
+import type { Product } from '../data/products';
+import { SITE } from '../data/site';
+
+interface Props {
+  product: Product;
+  wide?: boolean;
+}
+
+const { product, wide = false } = Astro.props;
+const href = product.etsyUrl || SITE.etsyShopUrl;
+---
+
+<article class:list={['card', 'product', { wide }]}>
+  <div class="thumb">
+    {product.image ? (
+      <img src={product.image} alt={product.name} loading="lazy" width="600" height="600" />
+    ) : (
+      <div class="placeholder" aria-hidden="true">
+        <span>{product.section}</span>
+      </div>
+    )}
+  </div>
+  <div class="body">
+    <p class="eyebrow">{product.section}</p>
+    <h3>{product.name}</h3>
+    <p class="muted">{product.blurb}</p>
+    <div class="buy">
+      {product.price && <span class="price">{product.price}</span>}
+      <a class="btn" href={href} rel="noopener" target="_blank">View on Etsy</a>
+    </div>
+  </div>
+</article>
+
+<style>
+  .product h3 { font-size: 1.4rem; margin: 0.2em 0 0.3em; }
+  .product p { margin: 0 0 12px; }
+  .thumb { aspect-ratio: 1 / 1; background: var(--cream-deep); }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .placeholder {
+    height: 100%;
+    display: grid;
+    place-items: center;
+    background:
+      radial-gradient(circle at 30% 30%, rgb(217 196 154 / 0.45), transparent 55%),
+      radial-gradient(circle at 70% 70%, rgb(138 154 123 / 0.35), transparent 55%),
+      var(--cream-deep);
+  }
+  .placeholder span {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--sage-deep);
+  }
+  .body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+  .buy { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .price { font-weight: 700; font-size: 1.1rem; }
+  .wide { flex-direction: row; margin: 2em 0; }
+  .wide .thumb { width: 40%; flex-shrink: 0; }
+  @media (max-width: 560px) {
+    .wide { flex-direction: column; }
+    .wide .thumb { width: 100%; }
+  }
+</style>

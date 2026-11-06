@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import EmailSignup from '../components/EmailSignup.astro';
+---
+
+<Base title="Free Printable" description="Get a free scripture printable from Covenant Living, plus one new Come Follow Me idea each week.">
+  <section class="read section">
+    <p class="eyebrow">Free printable</p>
+    <h1>A free scripture printable for your home</h1>
+    <p class="lead muted">
+      Sign up and a free printable lands in your inbox right away. Each week after that, you'll get one new
+      Come Follow Me idea and the printable that goes with it.
+    </p>
+    <ul>
+      <li>Instant download, print at home</li>
+      <li>One email a week, never more</li>
+      <li>Unsubscribe anytime</li>
+    </ul>
+    <EmailSignup heading="Send me the free printable" text="Enter your email and check your inbox in a minute or two." />
+  </section>
+</Base>
+
+<style>
+  .lead { font-size: 1.15rem; }
+</style>

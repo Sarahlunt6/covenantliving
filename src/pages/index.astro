@@ -1,0 +1,92 @@
+---
+import Base from '../layouts/Base.astro';
+import PostCard from '../components/PostCard.astro';
+import ProductCard from '../components/ProductCard.astro';
+import EmailSignup from '../components/EmailSignup.astro';
+import { getPosts } from '../data/posts';
+import { PRODUCTS } from '../data/products';
+import { CATALOG_SECTIONS } from '../data/site';
+
+const latest = (await getPosts()).slice(0, 3);
+const featured = PRODUCTS.filter((p) => p.featured).slice(0, 3);
+const sectionSlug = (s: string) => s.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-');
+---
+
+<Base>
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <p class="eyebrow">Printables for Latter-day Saint families</p>
+      <h1>Bring the gospel home, one printable at a time</h1>
+      <p class="lead">
+        Come Follow Me helps, missionary keepsakes, Primary resources, and scripture art for families,
+        missionary moms, and Primary leaders.
+      </p>
+      <div class="ctas">
+        <a class="btn" href="/shop/">Browse printables</a>
+        <a class="btn btn--ghost" href="/blog/">Read the blog</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Shop by collection</h2>
+      <div class="sections">
+        {CATALOG_SECTIONS.map((s) => (
+          <a class="pill" href={`/shop/#${sectionSlug(s)}`}>{s}</a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {featured.length > 0 && (
+    <section class="section section--tint">
+      <div class="wrap">
+        <h2>In season now</h2>
+        <div class="grid grid--3">
+          {featured.map((p) => <ProductCard product={p} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {latest.length > 0 && (
+    <section class="section">
+      <div class="wrap">
+        <h2>From the blog</h2>
+        <div class="grid grid--3">
+          {latest.map((post) => <PostCard post={post} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="read">
+    <EmailSignup />
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding: 88px 0 72px;
+    background:
+      radial-gradient(ellipse at 15% 20%, rgb(217 196 154 / 0.35), transparent 60%),
+      radial-gradient(ellipse at 85% 80%, rgb(138 154 123 / 0.25), transparent 60%),
+      var(--cream);
+  }
+  .hero-inner { max-width: 760px; text-align: center; }
+  .lead { font-size: 1.2rem; color: var(--ink-soft); }
+  .ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
+  .sections { display: flex; flex-wrap: wrap; gap: 12px; }
+  .pill {
+    text-decoration: none;
+    color: var(--ink);
+    font-weight: 700;
+    background: var(--white);
+    border: 1.5px solid var(--wheat);
+    padding: 0.6em 1.2em;
+    border-radius: 999px;
+  }
+  .pill:hover { border-color: var(--sage); color: var(--sage-deep); }
+  .section h2 { margin-top: 0; }
+</style>

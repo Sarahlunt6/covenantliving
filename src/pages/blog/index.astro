@@ -1,0 +1,38 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getPosts } from '../../data/posts';
+
+const posts = await getPosts();
+const categories = ['Come Follow Me', 'Missionary', 'Primary', 'Holidays'] as const;
+const groups = categories
+  .map((name) => ({ name, posts: posts.filter((p) => p.data.category === name) }))
+  .filter((g) => g.posts.length > 0);
+---
+
+<Base title="Blog" description="Come Follow Me lesson ideas, missionary support, Primary helps, and Christ-centered holiday traditions.">
+  <section class="wrap section">
+    <p class="eyebrow">The blog</p>
+    <h1>Ideas for gospel-centered homes</h1>
+    <p class="muted lead">
+      Come Follow Me lesson ideas, missionary support, Primary helps, and Christ-centered holiday traditions,
+      each with a printable to go with it.
+    </p>
+
+    {posts.length === 0 && <p class="muted">The first posts are on their way.</p>}
+
+    {groups.map((group) => (
+      <section class="group">
+        <h2>{group.name}</h2>
+        <div class="grid grid--3">
+          {group.posts.map((post) => <PostCard post={post} />)}
+        </div>
+      </section>
+    ))}
+  </section>
+</Base>
+
+<style>
+  .lead { max-width: 640px; }
+  .group h2 { margin-top: 1.4em; }
+</style>

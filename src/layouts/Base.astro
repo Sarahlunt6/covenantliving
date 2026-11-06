@@ -1,0 +1,128 @@
+---
+import '../styles/global.css';
+import { SITE } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const { title, description = SITE.tagline, image } = Astro.props;
+const pageTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} | ${SITE.tagline}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = image ? new URL(image, Astro.site).href : undefined;
+const path = Astro.url.pathname;
+const nav = [
+  { href: '/blog/', label: 'Blog' },
+  { href: '/shop/', label: 'Shop' },
+  { href: '/free-printable/', label: 'Free Printable' },
+  { href: '/about/', label: 'About' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Lato:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap bar">
+        <a class="brand" href="/">
+          <span class="brand-name">Covenant Living</span>
+          <span class="brand-sub">printables</span>
+        </a>
+        <nav aria-label="Main">
+          {nav.map((item) => (
+            <a href={item.href} aria-current={path.startsWith(item.href) ? 'page' : undefined}>{item.label}</a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap foot">
+        <div>
+          <p class="brand-name">Covenant Living</p>
+          <p class="muted small">{SITE.tagline}</p>
+        </div>
+        <div class="foot-links">
+          <a href={SITE.etsyShopUrl}>Etsy shop</a>
+          {SITE.pinterestUrl && <a href={SITE.pinterestUrl}>Pinterest</a>}
+          <a href="/free-printable/">Free printable</a>
+          <a href="/about/">About</a>
+        </div>
+      </div>
+      <div class="wrap">
+        <p class="muted small fine">
+          {SITE.aiDisclosure} Covenant Living is an independent shop and is not affiliated with or endorsed by
+          The Church of Jesus Christ of Latter-day Saints. © {new Date().getFullYear()} Covenant Living.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .site-header {
+    background: var(--cream);
+    border-bottom: 1px solid var(--cream-deep);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 72px;
+    flex-wrap: wrap;
+    padding-block: 10px;
+  }
+  .brand { text-decoration: none; display: flex; align-items: baseline; gap: 8px; }
+  .brand-name { font-family: var(--serif); font-size: 1.7rem; font-weight: 600; color: var(--ink); margin: 0; }
+  .brand-sub {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    font-weight: 700;
+  }
+  nav { display: flex; gap: 20px; flex-wrap: wrap; }
+  nav a { text-decoration: none; color: var(--ink); font-weight: 700; font-size: 0.95rem; }
+  nav a:hover,
+  nav a[aria-current='page'] { color: var(--sage-deep); box-shadow: inset 0 -2px 0 var(--wheat); }
+  .site-footer { background: var(--cream-deep); margin-top: 64px; padding: 40px 0 24px; }
+  .foot { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .foot p { margin: 0; }
+  .foot-links { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+  .fine { margin-top: 24px; border-top: 1px solid var(--wheat); padding-top: 16px; }
+  @media (max-width: 560px) {
+    nav { gap: 14px; }
+    nav a { font-size: 0.9rem; }
+  }
+</style>

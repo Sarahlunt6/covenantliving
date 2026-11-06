@@ -1,0 +1,58 @@
+---
+import { SITE } from '../data/site';
+
+interface Props {
+  heading?: string;
+  text?: string;
+}
+
+const {
+  heading = 'Get a free printable',
+  text = 'Join the list for a free scripture printable, plus one new Come Follow Me idea each week.',
+} = Astro.props;
+---
+
+<aside class="signup">
+  <p class="eyebrow">Free printable</p>
+  <h3>{heading}</h3>
+  <p class="muted">{text}</p>
+  {SITE.emailFormAction ? (
+    <form action={SITE.emailFormAction} method="post" target="_blank">
+      <label class="visually-hidden" for="signup-email">Email address</label>
+      <input id="signup-email" type="email" name="email" placeholder="you@example.com" required />
+      <button class="btn" type="submit">Send it to me</button>
+    </form>
+  ) : (
+    <p class="small muted soon">Signup form coming soon.</p>
+  )}
+</aside>
+
+<style>
+  .signup {
+    background: var(--white);
+    border: 1px solid var(--wheat);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin: 2.5em 0;
+  }
+  .signup h3 { margin: 0.2em 0 0.3em; font-size: 1.6rem; }
+  .signup p { margin: 0 0 16px; }
+  form { display: flex; gap: 10px; flex-wrap: wrap; }
+  input {
+    flex: 1 1 220px;
+    font: inherit;
+    padding: 0.7em 1em;
+    border-radius: 999px;
+    border: 1.5px solid var(--sage);
+    background: var(--cream);
+  }
+  .soon { font-style: italic; margin: 0; }
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+</style>
