@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://covenantlivingco.com/sitemap-index.xml
