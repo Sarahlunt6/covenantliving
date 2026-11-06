@@ -1,10 +1,10 @@
 ---
 title: "A Scripture-Centered Gratitude Journal for November"
 description: "Simple ways to make November a month of thanksgiving, with scriptures for each week and a printable journal to keep it all in one place."
-pubDate: 2026-11-11
+pubDate: 2026-11-06
 category: "Holidays"
 product: "gratitude-journal"
-draft: true
+draft: false
 ---
 
 November has a way of filling up fast. Between school, callings, and Thanksgiving plans, gratitude can turn into one rushed moment around the table. A few minutes with the scriptures each day changes that, and it's easier to keep up when you know exactly what to read and where to write it down.
