@@ -1,6 +1,6 @@
 # Covenant Living site
 
-Blog-first site for the Covenant Living Etsy shop. Built with Astro, hosted free on Cloudflare Pages, domain covenantlivingprints.com.
+Blog-first site for the Covenant Living Etsy shop. Built with Astro, hosted free on Cloudflare Pages, domain covenantlivingco.com.
 
 ## Where things live
 
@@ -48,6 +48,6 @@ Open http://localhost:4321. Drafts show here but not on the live site.
 2. Pick this GitHub repo.
 3. Framework preset: **Astro**. Build command: `npm run build`. Output directory: `dist`.
 4. Save and deploy.
-5. **Custom domains** → add `covenantlivingprints.com` (and `www`).
+5. **Custom domains** → add `covenantlivingco.com` (and `www`).
 
 Every push to `main` deploys automatically after that.

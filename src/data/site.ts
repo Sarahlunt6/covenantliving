@@ -2,7 +2,7 @@
 export const SITE = {
   name: 'Covenant Living',
   tagline: 'Gospel-centered printables for families, missionaries, and Primary',
-  url: 'https://covenantlivingprints.com',
+  url: 'https://covenantlivingco.com',
   // Your Share & Save shop link (Shop Manager → Marketing → Share & Save).
   // Must be the yourshopname.etsy.com format so Etsy credits the sale.
   etsyShopUrl: 'https://CovenantLiving.etsy.com',
