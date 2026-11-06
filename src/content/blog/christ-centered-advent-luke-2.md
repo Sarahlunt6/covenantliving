@@ -1,10 +1,10 @@
 ---
 title: "A Christ-Centered Advent Countdown: 24 Days in Luke 2"
 description: "Keep Christ at the center of December with a simple daily reading from Luke 2, plus ideas for making it work with kids of every age."
-pubDate: 2026-11-11
+pubDate: 2026-11-06
 category: "Holidays"
 product: "luke-2-advent-cards"
-draft: true
+draft: false
 ---
 
 December fills up quickly with parties, programs, and shopping lists. A daily Advent reading is one of the simplest ways to keep the Savior at the center, and Luke 2 is the perfect place to spend it. In one chapter you get the journey to Bethlehem, the angels, the shepherds, Simeon and Anna in the temple, and the boy Jesus teaching the elders.
@@ -51,6 +51,6 @@ The rest of the month follows the shepherds to the manger, then Simeon and Anna 
 
 Save the last reading for Christmas Eve and read it by the tree with the lights low. If you've been hanging the cards, read a few of the earlier ones aloud too, so everyone sees the whole story come together.
 
-> And the shepherds returned, glorifying and praising God for all the things that they had heard and seen.
+> And the shepherds returned, glorifying and praising God for all the things that they had heard and seen, as it was told unto them.
 >
 > — Luke 2:20

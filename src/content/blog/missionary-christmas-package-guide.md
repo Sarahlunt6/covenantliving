@@ -1,10 +1,10 @@
 ---
 title: "What to Send Your Missionary for Christmas: A Countdown Package Guide"
 description: "Ideas for a Christmas countdown package your missionary will love, plus tips on what to pack, what to skip, and when to mail it."
-pubDate: 2026-11-11
+pubDate: 2026-11-06
 category: "Missionary"
 product: "missionary-christmas-package"
-draft: true
+draft: false
 ---
 
 Christmas can be one of the tenderest times of a mission, for your missionary and for you. A countdown package turns one box into something they can open a little at a time, so they feel remembered all month long instead of just on Christmas morning.
@@ -61,6 +61,6 @@ Tuck in a tag for each day: a scripture, a family memory, or a short note. The s
 3. Write a note on each tag and attach it.
 4. Use the shipping checklist before you seal the box.
 
-> Behold, I bring you good tidings of great joy, which shall be to all people.
+> Fear not: for, behold, I bring you good tidings of great joy, which shall be to all people.
 >
 > — Luke 2:10
