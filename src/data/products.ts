@@ -27,7 +27,7 @@ export const PRODUCTS: Product[] = [
     blurb: 'Daily scripture and gratitude prompts for the weeks leading up to Thanksgiving.',
     price: '',
     image: '',
-    etsyUrl: '',
+    etsyUrl: 'https://covenantliving.etsy.com/listing/4587275802',
     featured: true,
   },
   {
@@ -37,7 +37,7 @@ export const PRODUCTS: Product[] = [
     blurb: 'A 24-day Christ-centered countdown to Christmas through Luke 2.',
     price: '',
     image: '',
-    etsyUrl: '',
+    etsyUrl: 'https://covenantliving.etsy.com/listing/4609252707',
     featured: true,
   },
   {
@@ -47,7 +47,7 @@ export const PRODUCTS: Product[] = [
     blurb: 'Plan and pack a Christmas countdown box for your missionary.',
     price: '',
     image: '',
-    etsyUrl: '',
+    etsyUrl: 'https://covenantliving.etsy.com/listing/4601807691',
     featured: true,
   },
   {
