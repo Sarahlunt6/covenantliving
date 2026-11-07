@@ -26,7 +26,7 @@ export const PRODUCTS: Product[] = [
     section: 'Come Follow Me',
     blurb: 'Daily scripture and gratitude prompts for the weeks leading up to Thanksgiving.',
     price: '$8.00',
-    image: '',
+    image: '/images/products/gratitude-journal.webp',
     etsyUrl: 'https://covenantliving.etsy.com/listing/4587275802',
     featured: true,
   },
