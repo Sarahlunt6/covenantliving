@@ -172,15 +172,6 @@ export const PRODUCTS: Product[] = [
     etsyUrl: 'https://covenantliving.etsy.com/listing/4607898672',
   },
   {
-    slug: 'november-primary-coloring',
-    name: 'November Come Follow Me Coloring Pages',
-    section: 'Primary Resources',
-    blurb: 'Old Testament coloring pages for each November lesson.',
-    price: '',
-    image: '',
-    etsyUrl: '',
-  },
-  {
     slug: 'temple-tracker',
     name: '52-Week Temple Attendance Tracker',
     section: 'Scripture Wall Art',
