@@ -7,6 +7,8 @@ import type { CatalogSection } from './site';
 //   Leave '' until you have it; the button falls back to your shop home page.
 // image: put the 2000×2000 mockup in public/images/products/ and use its path here.
 // price: as shown on Etsy, e.g. '$14.99'. Leave '' to hide the price.
+// previews (optional): 1–4 sample pages for the "Peek inside" slideshow, in
+//   public/images/previews/<slug>/. Keep them web-size and watermarked so they can't be printed.
 
 export type Product = {
   slug: string;
@@ -17,7 +19,11 @@ export type Product = {
   image: string;
   etsyUrl: string;
   featured?: boolean;
+  previews?: string[];
 };
+
+const previews = (slug: string, count: number) =>
+  Array.from({ length: count }, (_, i) => `/images/previews/${slug}/${i + 1}.webp`);
 
 export const PRODUCTS: Product[] = [
   {
@@ -49,6 +55,7 @@ export const PRODUCTS: Product[] = [
     image: '/images/products/missionary-christmas-package.webp',
     etsyUrl: 'https://covenantliving.etsy.com/listing/4601807691',
     featured: true,
+    previews: previews('missionary-christmas-package', 4),
   },
   {
     slug: 'missionary-mom-journal',
@@ -107,12 +114,33 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: 'primary-lesson-plans',
-    name: 'Come Follow Me Primary Lesson Plans',
+    name: '2027 Come Follow Me Primary Teaching Guide',
     section: 'Primary Resources',
-    blurb: 'Weekly lesson plans with a kids’ activity page.',
+    blurb: '52 weekly New Testament lessons plus 12 new fast-Sunday lessons, ready to teach.',
     price: '',
-    image: '',
+    image: '/images/products/primary-lesson-plans.webp',
     etsyUrl: '',
+    previews: previews('primary-lesson-plans', 4),
+  },
+  {
+    slug: 'articles-of-faith-cards',
+    name: 'Articles of Faith Picture Cards (4×6)',
+    section: 'Primary Resources',
+    blurb: 'All 13 Articles of Faith on illustrated cards for memorizing at home or in Primary.',
+    price: '',
+    image: '/images/products/articles-of-faith-cards.webp',
+    etsyUrl: '',
+    previews: previews('articles-of-faith-cards', 4),
+  },
+  {
+    slug: 'twelve-days-christmas-chart',
+    name: '12 Days of Christmas Scripture Reading Chart',
+    section: 'Come Follow Me',
+    blurb: 'Twelve days of prophecy and nativity readings, December 13 to Christmas Eve.',
+    price: '',
+    image: '/images/products/twelve-days-christmas-chart.webp',
+    etsyUrl: '',
+    previews: previews('twelve-days-christmas-chart', 1),
   },
   {
     slug: 'november-primary-coloring',

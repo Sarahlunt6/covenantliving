@@ -96,3 +96,74 @@ document.querySelectorAll<HTMLElement>('[data-filters]').forEach((group) => {
   const fromHash = buttons.find((b) => b.dataset.hash && `#${b.dataset.hash}` === location.hash);
   if (fromHash) apply(fromHash.dataset.filter ?? 'all');
 });
+
+/* "Peek inside" slideshow for product sample pages */
+const lb = document.querySelector<HTMLDialogElement>('[data-lightbox]');
+if (lb && typeof lb.showModal === 'function') {
+  const img = lb.querySelector<HTMLImageElement>('[data-lb-img]')!;
+  const title = lb.querySelector<HTMLElement>('#lightbox-title')!;
+  const count = lb.querySelector<HTMLElement>('[data-lb-count]')!;
+  const buy = lb.querySelector<HTMLAnchorElement>('[data-lb-buy]')!;
+  const prev = lb.querySelector<HTMLButtonElement>('[data-lb-prev]')!;
+  const next = lb.querySelector<HTMLButtonElement>('[data-lb-next]')!;
+  let pages: string[] = [];
+  let index = 0;
+  let name = '';
+
+  const render = (animate = true) => {
+    const set = () => {
+      img.src = pages[index];
+      img.alt = `${name}, sample page ${index + 1} of ${pages.length}`;
+      count.textContent = pages.length > 1 ? `Page ${index + 1} of ${pages.length}` : 'Sample page';
+      prev.hidden = next.hidden = pages.length < 2;
+    };
+    if (!animate || reduce) return set();
+    img.classList.add('swap');
+    window.setTimeout(() => {
+      set();
+      img.classList.remove('swap');
+    }, 180);
+  };
+  const go = (step: number) => {
+    if (pages.length < 2) return;
+    index = (index + step + pages.length) % pages.length;
+    render();
+  };
+
+  document.addEventListener('click', (e) => {
+    const trigger = (e.target as Element).closest<HTMLElement>('[data-peek]');
+    if (!trigger) return;
+    try {
+      pages = JSON.parse(trigger.dataset.peek ?? '[]');
+    } catch {
+      pages = [];
+    }
+    if (!pages.length) return;
+    index = 0;
+    name = trigger.dataset.peekTitle ?? '';
+    title.textContent = name;
+    buy.href = trigger.dataset.peekHref ?? '#';
+    render(false);
+    pages.slice(1).forEach((src) => (new Image().src = src));
+    lb.showModal();
+  });
+
+  prev.addEventListener('click', () => go(-1));
+  next.addEventListener('click', () => go(1));
+  lb.querySelector('[data-lb-close]')!.addEventListener('click', () => lb.close());
+  lb.addEventListener('click', (e) => {
+    if (e.target === lb) lb.close();
+  });
+  lb.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') go(-1);
+    if (e.key === 'ArrowRight') go(1);
+  });
+  img.addEventListener('contextmenu', (e) => e.preventDefault());
+
+  let startX = 0;
+  img.addEventListener('pointerdown', (e) => (startX = e.clientX));
+  img.addEventListener('pointerup', (e) => {
+    const dx = e.clientX - startX;
+    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+  });
+}

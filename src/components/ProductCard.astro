@@ -30,6 +30,18 @@ const href = product.etsyUrl || SITE.etsyShopUrl;
     )}
     <span class="peek">View on Etsy</span>
   </a>
+  {product.previews?.length ? (
+    <button
+      class="peek-btn"
+      type="button"
+      data-peek={JSON.stringify(product.previews)}
+      data-peek-title={product.name}
+      data-peek-href={href}
+    >
+      Peek inside
+      <span class="count">{product.previews.length}</span>
+    </button>
+  ) : null}
   <div class="body">
     <p class="eyebrow">{product.section}</p>
     <h3>{product.name}</h3>
@@ -42,7 +54,40 @@ const href = product.etsyUrl || SITE.etsyShopUrl;
 </article>
 
 <style>
+  .product { position: relative; }
   .product h3 { font-size: 1.45rem; margin: 0.2em 0 0.3em; }
+  .peek-btn {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--forest);
+    background: rgb(251 247 239 / 0.94);
+    border: 0;
+    border-radius: 999px;
+    padding: 0.45em 0.6em 0.45em 1em;
+    box-shadow: 0 4px 14px rgb(0 0 0 / 0.15);
+    cursor: pointer;
+    transition: transform 0.25s var(--ease), background 0.25s;
+  }
+  .peek-btn:hover { transform: translateY(-2px); background: var(--white); }
+  .count {
+    display: inline-grid;
+    place-items: center;
+    min-width: 1.6em;
+    height: 1.6em;
+    border-radius: 999px;
+    background: var(--sage-deep);
+    color: var(--white);
+    font-size: 0.75rem;
+  }
+  .wide .peek-btn { left: 14px; right: auto; }
   .product p { margin: 0 0 12px; }
   .thumb {
     position: relative;
