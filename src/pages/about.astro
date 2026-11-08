@@ -4,8 +4,26 @@ import { SITE } from '../data/site';
 ---
 
 <Base
-  title="About"
+  title="About Sarah"
   description="Covenant Living began after Sarah's mission in Barcelona, Spain: gospel-centered printables for missionaries, families, and Primary leaders."
+  image={SITE.author.image}
+  jsonLd={[
+    {
+      '@context': 'https://schema.org',
+      '@type': 'ProfilePage',
+      mainEntity: {
+        '@type': 'Person',
+        '@id': new URL('/about/#sarah', Astro.site).href,
+        name: SITE.author.name,
+        image: new URL(SITE.author.image, Astro.site).href,
+        description: SITE.author.bio,
+        url: new URL('/about/', Astro.site).href,
+        knowsAbout: ['Come, Follow Me', 'Missionary work', 'Primary lessons', 'Scripture study', 'Printable design'],
+        worksFor: { '@id': new URL('/#organization', Astro.site).href },
+        sameAs: [SITE.etsyShopUrl],
+      },
+    },
+  ]}
 >
   <section class="about-head">
     <div class="wrap head-grid">

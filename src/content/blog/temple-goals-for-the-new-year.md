@@ -5,6 +5,13 @@ pubDate: 2026-11-08
 category: "Gospel Living"
 product: "temple-tracker"
 draft: false
+faqs:
+  - q: "How often should I go to the temple?"
+    a: "There's no single right answer. Choose a goal that fits your distance from a temple and your season of life, such as weekly, monthly, or one visit to start."
+  - q: "How can I make temple visits more meaningful?"
+    a: "Bring a family name, go at a regular time, and write down any impressions before you leave."
+  - q: "How do I find family names to take to the temple?"
+    a: "Use FamilySearch to look for ancestors who need temple ordinances, and bring their names with you."
 ---
 
 A new year is a natural time to think about the temple. Maybe you want to go more often. Maybe you want each visit to mean more. Maybe you just want to get back in the habit. Whatever brought you here, a simple goal can help.
@@ -52,3 +59,5 @@ Next December, sit down with your notes. How many times did you go? Which visits
 > One thing have I desired of the LORD, that will I seek after; that I may dwell in the house of the LORD all the days of my life, to behold the beauty of the LORD, and to enquire in his temple.
 >
 > — Psalm 27:4
+
+**Keep reading:** [Getting Ready for Come Follow Me 2027](/blog/come-follow-me-2027-new-testament-family/) · [A Scripture-Centered Gratitude Journal for November](/blog/scripture-gratitude-journal-november/)

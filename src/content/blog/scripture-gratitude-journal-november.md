@@ -5,6 +5,13 @@ pubDate: 2026-11-06
 category: "Holidays"
 product: "gratitude-journal"
 draft: false
+faqs:
+  - q: "What is a good scripture about gratitude?"
+    a: "Doctrine and Covenants 59:7 says, \"Thou shalt thank the Lord thy God in all things.\" Psalm 100:4, 1 Thessalonians 5:18, and Alma 34:38 are also favorites for a month of thanksgiving."
+  - q: "How do you keep a gratitude journal with kids?"
+    a: "Keep it short: one verse and one sentence or drawing a day. Read the week's scripture together at dinner, let each person share one thing, and save the pages to read on Thanksgiving."
+  - q: "When should a November gratitude journal start?"
+    a: "Any day works. Starting November 1 gives you about four weeks before Thanksgiving, but you can begin mid-month and still finish strong."
 ---
 
 November has a way of filling up fast. Between school, callings, and Thanksgiving plans, gratitude can turn into one rushed moment around the table. A few minutes with the scriptures each day changes that, and it's easier to keep up when you know exactly what to read and where to write it down.
@@ -72,3 +79,5 @@ Only one of the ten lepers came back to thank Jesus (Luke 17:15–16).
 > And he who receiveth all things with thankfulness shall be made glorious.
 >
 > — D&C 78:19
+
+**Keep reading:** [A Christ-Centered Advent Countdown](/blog/christ-centered-advent-luke-2/) · [The 12 Days of Christmas Scripture Reading Plan](/blog/12-days-of-christmas-scripture-reading/)

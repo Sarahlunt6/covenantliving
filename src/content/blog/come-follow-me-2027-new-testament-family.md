@@ -5,6 +5,13 @@ pubDate: 2026-11-08
 category: "Come Follow Me"
 product: "family-nt-journal-2027"
 draft: false
+faqs:
+  - q: "What does Come, Follow Me study in 2027?"
+    a: "The New Testament. The first week, December 28 to January 3, covers Matthew 1 and Luke 1."
+  - q: "When is Easter in 2027?"
+    a: "Easter Sunday is March 28, 2027."
+  - q: "How long should family scripture study take?"
+    a: "Ten minutes most days is plenty. A short, steady habit does more than an occasional long lesson."
 ---
 
 In 2027, *Come, Follow Me* turns to the New Testament. That means a whole year walking with the Savior through the Gospels, the early Church, and the letters of the Apostles. The first week, December 28 to January 3, starts with Matthew 1 and Luke 1, so the year begins with the story of His birth.
@@ -50,3 +57,5 @@ The families who stick with it all year usually have one thing in common: they w
 > — Luke 2:52
 
 That's a good goal for all of us this year.
+
+**Keep reading:** [Teaching the Articles of Faith to Children](/blog/teaching-articles-of-faith-to-children/) · [Simple Temple Goals for the New Year](/blog/temple-goals-for-the-new-year/)

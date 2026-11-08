@@ -5,6 +5,13 @@ pubDate: 2026-11-08
 category: "Holidays"
 product: "christmas-eve-nativity-kit"
 draft: false
+faqs:
+  - q: "How long does a family Nativity take?"
+    a: "About 15 minutes if you read Luke 2:1–20 word for word and act it out, a little longer if you add the wise men from Matthew 2."
+  - q: "How many people do you need to act out the Nativity?"
+    a: "As few as three: a narrator, Mary, and Joseph. Everyone else can be shepherds, angels, or sheep, and stuffed animals work too."
+  - q: "What scriptures tell the Nativity story?"
+    a: "Luke 2:1–20 tells of the birth of Jesus Christ and the shepherds. Matthew 2:1–11 tells of the wise men."
 ---
 
 Some of the sweetest Christmas memories happen in a living room, with a bathrobe for a shepherd's cloak and a baby doll in a laundry basket. Acting out the Nativity on Christmas Eve takes almost no preparation, and it puts the story of the Savior's birth right in the middle of your celebration.
@@ -73,3 +80,5 @@ The first year might be a little chaotic. That's fine. By the third or fourth Ch
 > And the shepherds returned, glorifying and praising God for all the things that they had heard and seen, as it was told unto them.
 >
 > — Luke 2:20
+
+**Keep reading:** [A Christ-Centered Advent Countdown](/blog/christ-centered-advent-luke-2/) · [12 Christmas Scriptures to Write on Gift Tags](/blog/christmas-scriptures-for-gift-tags/)

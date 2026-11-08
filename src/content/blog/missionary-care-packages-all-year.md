@@ -5,6 +5,13 @@ pubDate: 2026-11-08
 category: "Missionary"
 product: "missionary-mom-journal"
 draft: false
+faqs:
+  - q: "How far ahead should I mail a missionary package?"
+    a: "Work backward from the date you want it to arrive, using the carrier's estimate plus extra time. Packages to other countries and during the holidays need the most lead time."
+  - q: "What should I put in a missionary care package?"
+    a: "Practical items like socks or toiletries, a taste of home, letters and printed photos, and a small treat to share with their companion."
+  - q: "What should I not send a missionary?"
+    a: "Heavy or fragile items, expensive electronics, anything hard to carry during a transfer, and anything their mission doesn't allow."
 ---
 
 Missionary packages are a sweet way to say "we love you" from far away. They're also easy to send too late. A birthday package that arrives two weeks after the birthday still means a lot, but a little planning means it can arrive right on time.
@@ -80,3 +87,5 @@ Write down every package you send: the date you mailed it, what was inside, and 
 > — Galatians 6:2
 
 A package is a small way to help carry the load for someone doing the Lord's work far from home.
+
+**Keep reading:** [What to Send Your Missionary for Christmas](/blog/missionary-christmas-package-guide/) · [What to Write to Your Missionary](/blog/what-to-write-to-your-missionary/)

@@ -5,6 +5,13 @@ pubDate: 2026-11-06
 category: "Missionary"
 product: "missionary-christmas-package"
 draft: false
+faqs:
+  - q: "When should I mail my missionary's Christmas package?"
+    a: "Mail it well before December, and earlier still for missions outside the country. Check your carrier's holiday shipping deadlines and the destination's customs rules."
+  - q: "Where do I send a missionary package?"
+    a: "Many missions ask families to send packages to the mission office rather than to the missionary. Confirm the address with your missionary or the mission office."
+  - q: "What is a Christmas countdown package?"
+    a: "A box of 12 or 24 small wrapped items, each numbered or tagged with a date, so your missionary can open one a day leading up to Christmas."
 ---
 
 Christmas can be one of the tenderest times of a mission, for your missionary and for you. A countdown package turns one box into something they can open a little at a time, so they feel remembered all month long instead of just on Christmas morning.
@@ -64,3 +71,5 @@ Tuck in a tag for each day: a scripture, a family memory, or a short note. The s
 > Fear not: for, behold, I bring you good tidings of great joy, which shall be to all people.
 >
 > — Luke 2:10
+
+**Keep reading:** [Planning Missionary Care Packages for the Whole Year](/blog/missionary-care-packages-all-year/) · [What to Write to Your Missionary](/blog/what-to-write-to-your-missionary/)

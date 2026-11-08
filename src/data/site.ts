@@ -20,6 +20,13 @@ export const SITE = {
   // How many days show the real printed card (images in public/images/advent/dec01.webp …).
   // Later days show the verse as text plus a link to the Etsy listing.
   adventCardDays: 5,
+  // Default image when a page is shared (1200×630)
+  ogImage: '/images/og-default.jpg',
+  author: {
+    name: 'Sarah',
+    image: '/images/about/sarah.webp',
+    bio: 'Sarah is the maker behind Covenant Living. She served a full-time mission in Barcelona, Spain, and designs gospel-centered printables for missionaries, families, and Primary leaders.',
+  },
   aiDisclosure:
     'Some illustrations on this site were created with the help of AI tools and finished by hand.',
 };

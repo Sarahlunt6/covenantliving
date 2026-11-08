@@ -5,6 +5,13 @@ pubDate: 2026-11-08
 category: "Holidays"
 product: "scripture-gift-tags"
 draft: false
+faqs:
+  - q: "What is a short Christmas scripture for a gift tag?"
+    a: "Luke 2:11, \"For unto you is born this day in the city of David a Saviour, which is Christ the Lord,\" is the most popular. For something shorter, try Luke 1:37 or 1 John 4:19."
+  - q: "What scripture talks about the gift of Jesus?"
+    a: "2 Corinthians 9:15: \"Thanks be unto God for his unspeakable gift.\""
+  - q: "What scripture fits a gift for someone going through a hard time?"
+    a: "John 1:5, \"And the light shineth in darkness; and the darkness comprehended it not,\" is a gentle reminder of hope."
 ---
 
 A gift tag is a small thing, but it's often the first thing someone reads. Adding a scripture turns "To" and "From" into a quiet reminder of why we give gifts at all.
@@ -94,3 +101,5 @@ Sweet for a spouse, a child, or a thank-you gift.
 - **Add a line of your own** on the back: "This verse made me think of you because…"
 
 However you share them, a scripture on a gift tag is a small way to keep the Savior at the center of a busy, wrapping-paper-covered season.
+
+**Keep reading:** [How to Act Out the Nativity on Christmas Eve](/blog/christmas-eve-nativity-luke-2/) · [The 12 Days of Christmas Scripture Reading Plan](/blog/12-days-of-christmas-scripture-reading/)

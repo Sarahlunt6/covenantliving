@@ -15,19 +15,81 @@ export async function getStaticPaths() {
 
 const { post, posts } = Astro.props;
 const { Content } = await render(post);
-const { title, description, category, heroImage, pinImage, pubDate } = post.data;
+const { title, description, category, heroImage, pinImage, pubDate, updatedDate, faqs } = post.data;
 const product = getProduct(post.data.product);
 const related = posts.filter((p) => p.id !== post.id && p.data.category === category).slice(0, 2);
-const date = pubDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+const date = fmt(pubDate);
+const image = pinImage ?? heroImage ?? product?.image;
+const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
+const site = new URL('/', Astro.site).href;
+const abs = (path?: string) => (path ? new URL(path, Astro.site).href : undefined);
+
+const jsonLd: Record<string, unknown>[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    '@id': `${pageUrl}#article`,
+    headline: title,
+    description,
+    image: abs(image),
+    datePublished: pubDate.toISOString(),
+    dateModified: (updatedDate ?? pubDate).toISOString(),
+    articleSection: category,
+    inLanguage: 'en-US',
+    mainEntityOfPage: pageUrl,
+    author: {
+      '@type': 'Person',
+      '@id': `${site}about/#sarah`,
+      name: SITE.author.name,
+      url: `${site}about/`,
+    },
+    publisher: { '@id': `${site}#organization` },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: site },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: `${site}blog/` },
+      { '@type': 'ListItem', position: 3, name: title, item: pageUrl },
+    ],
+  },
+];
+if (faqs.length) {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  });
+}
 ---
 
-<Base title={title} description={description} image={pinImage ?? heroImage}>
+<Base
+  title={title}
+  description={description}
+  image={image}
+  ogType="article"
+  jsonLd={jsonLd}
+  publishedTime={pubDate}
+  modifiedTime={updatedDate}
+>
   <div class="progress" data-progress aria-hidden="true"></div>
   <article class="read post">
     <header>
       <p class="eyebrow" data-reveal>{category}</p>
       <h1 data-reveal style="--d: 100ms">{title}</h1>
-      <p class="muted small" data-reveal style="--d: 200ms">{date}</p>
+      <p class="byline muted small" data-reveal style="--d: 200ms">
+        <img src={SITE.author.image} alt="" width="36" height="36" />
+        <span>
+          By <a href="/about/" rel="author">{SITE.author.name}</a> · <time datetime={pubDate.toISOString()}>{date}</time>
+          {updatedDate && <> · Updated <time datetime={updatedDate.toISOString()}>{fmt(updatedDate)}</time></>}
+        </span>
+      </p>
       {product && (
         <p class="jump" data-reveal style="--d: 300ms">
           Looking for the printable? <a href={product.etsyUrl || SITE.etsyShopUrl} target="_blank" rel="noopener">Get it on Etsy</a>
@@ -41,6 +103,27 @@ const date = pubDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric'
     <div class="prose">
       <Content />
     </div>
+
+    {faqs.length > 0 && (
+      <section class="faqs" aria-labelledby="faq-title">
+        <h2 id="faq-title">Frequently asked questions</h2>
+        {faqs.map((f) => (
+          <div class="faq">
+            <h3>{f.q}</h3>
+            <p>{f.a}</p>
+          </div>
+        ))}
+      </section>
+    )}
+
+    <aside class="author-box">
+      <img src={SITE.author.image} alt={`${SITE.author.name}, maker of Covenant Living`} width="96" height="96" loading="lazy" />
+      <div>
+        <p class="eyebrow">Written by</p>
+        <p class="ab-name">{SITE.author.name}</p>
+        <p class="muted small">{SITE.author.bio} <a href="/about/">Read her story</a>.</p>
+      </div>
+    </aside>
 
     {product && (
       <>
@@ -65,6 +148,27 @@ const date = pubDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric'
 <style>
   .post { padding-top: 56px; }
   header h1 { font-size: clamp(2.3rem, 5.4vw, 3.6rem); line-height: 1.08; }
+  .byline { display: flex; align-items: center; gap: 10px; margin: 0 0 18px; }
+  .byline img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; object-position: top; }
+  .byline a { font-weight: 700; }
+  .faqs { margin-top: 2.5em; padding-top: 0.5em; border-top: 1px solid var(--wheat); }
+  .faq h3 { font-size: 1.3rem; margin: 1.2em 0 0.3em; }
+  .faq p { margin: 0; }
+  .author-box {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin: 2.5em 0 0;
+    padding: 22px;
+    background: var(--cream-deep);
+    border-radius: var(--radius);
+  }
+  .author-box img { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; object-position: top; flex-shrink: 0; }
+  .author-box p { margin: 0; }
+  .ab-name { font-family: var(--serif); font-size: 1.6rem; font-weight: 600; line-height: 1.1; margin: 2px 0 6px !important; }
+  @media (max-width: 480px) {
+    .author-box { flex-direction: column; text-align: center; }
+  }
   .progress {
     position: fixed;
     top: 0;

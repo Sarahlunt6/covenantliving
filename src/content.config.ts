@@ -17,6 +17,10 @@ const blog = defineCollection({
     product: z.string().optional(),
     // true = hidden on the live site, still visible while you preview locally
     draft: z.boolean().default(false),
+    // Last time the post was meaningfully updated (shown to search engines)
+    updatedDate: z.coerce.date().optional(),
+    // Short questions and answers shown at the end of the post (and marked up for Google / AI search)
+    faqs: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
   }),
 });
 

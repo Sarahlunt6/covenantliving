@@ -5,6 +5,13 @@ pubDate: 2026-11-08
 category: "Holidays"
 product: "twelve-days-christmas-chart"
 draft: false
+faqs:
+  - q: "When do the 12 days of Christmas scripture readings start?"
+    a: "This plan starts December 13 and ends on Christmas Eve with Luke 2:1–20."
+  - q: "Which scriptures prophesy of Christ's birth?"
+    a: "Isaiah 7:14 and 9:6–7, Micah 5:2, 1 Nephi 11:13–22, Mosiah 3:5–8, Alma 7:10–13, and Helaman 14:1–8."
+  - q: "Where is the Christmas story in the Book of Mormon?"
+    a: "3 Nephi 1 tells of the sign of the Savior's birth appearing in the Americas, after the Lord told Nephi, \"On the morrow come I into the world.\""
 ---
 
 If an Advent calendar feels like too much, or you've already missed the first part of December, the twelve days before Christmas are a perfect place to start. This plan begins on December 13 and ends on Christmas Eve, and it follows a simple idea:
@@ -64,3 +71,5 @@ On the last night, you'll read the words your family has been building toward al
 > — Luke 2:11
 
 Twelve days, twelve readings, and a Christmas centered on the One it's all about.
+
+**Keep reading:** [A Christ-Centered Advent Countdown](/blog/christ-centered-advent-luke-2/) · [How to Act Out the Nativity on Christmas Eve](/blog/christmas-eve-nativity-luke-2/)

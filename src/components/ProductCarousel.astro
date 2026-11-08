@@ -1,0 +1,175 @@
+---
+import { PRODUCTS } from '../data/products';
+import { SITE } from '../data/site';
+
+// Every product with a photo, featured ones first
+const slides = PRODUCTS.filter((p) => p.image).sort((a, b) => Number(!!b.featured) - Number(!!a.featured));
+---
+
+<section class="carousel" aria-labelledby="carousel-title">
+  <div class="wrap head" data-reveal>
+    <div>
+      <p class="eyebrow">The shop</p>
+      <h2 id="carousel-title">Shop the collection</h2>
+    </div>
+    <div class="controls">
+      <a class="arrow-link" href="/shop/">See everything</a>
+      <button class="nav" type="button" data-prev aria-label="Previous printables">‹</button>
+      <button class="nav" type="button" data-next aria-label="Next printables">›</button>
+    </div>
+  </div>
+
+  <ul class="track" data-carousel aria-label="Printables">
+    {slides.map((p, i) => (
+      <li class="slide">
+        <a href={p.etsyUrl || SITE.etsyShopUrl} target="_blank" rel="noopener">
+          <span class="img">
+            <img src={p.image} alt="" width="800" height="800" loading={i < 4 ? 'eager' : 'lazy'} />
+            {p.price && <span class="price">{p.price}</span>}
+          </span>
+          <span class="cap">
+            <span class="sec">{p.section}</span>
+            <span class="name">{p.name}</span>
+            <span class="go">View on Etsy</span>
+          </span>
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <div class="wrap">
+    <div class="bar" aria-hidden="true"><span data-bar></span></div>
+  </div>
+</section>
+
+<style>
+  .carousel {
+    padding: 80px 0 72px;
+    background:
+      radial-gradient(ellipse at 90% 0%, rgb(201 169 106 / 0.28), transparent 55%),
+      linear-gradient(180deg, var(--cream-deep), var(--cream));
+    overflow: hidden;
+  }
+  .head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
+  .head h2 { margin: 0; font-size: clamp(2.2rem, 5vw, 3.4rem); }
+  .controls { display: flex; align-items: center; gap: 10px; }
+  .controls .arrow-link { margin-right: 8px; }
+  .nav {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1.5px solid var(--wheat-deep);
+    background: var(--white);
+    color: var(--forest);
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.25s, color 0.25s, transform 0.25s var(--ease);
+  }
+  .nav:hover { background: var(--forest); color: var(--cream); transform: translateY(-2px); }
+
+  .track {
+    --edge: max(16px, calc((100vw - var(--wrap)) / 2));
+    list-style: none;
+    margin: 0;
+    padding: 8px var(--edge) 28px;
+    display: flex;
+    gap: 22px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--edge);
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .track::-webkit-scrollbar { display: none; }
+  .slide { flex: 0 0 clamp(250px, 27vw, 340px); scroll-snap-align: start; }
+  .slide a {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+    background: var(--white);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease);
+  }
+  .slide a:hover,
+  .slide a:focus-visible { transform: translateY(-8px) rotate(-0.6deg); box-shadow: var(--shadow-lift); }
+  .img { position: relative; display: block; aspect-ratio: 1 / 1; overflow: hidden; }
+  .img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease); }
+  .slide a:hover .img img { transform: scale(1.08); }
+  .price {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: var(--forest);
+    color: var(--cream);
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.15rem;
+    padding: 0.2em 0.75em;
+    border-radius: 999px;
+  }
+  .cap { display: flex; flex-direction: column; gap: 4px; padding: 18px 20px 20px; flex: 1; }
+  .sec { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; color: var(--sage-deep); }
+  .name { font-family: var(--serif); font-weight: 600; font-size: 1.35rem; line-height: 1.15; }
+  .go { margin-top: auto; padding-top: 10px; font-weight: 700; font-size: 0.9rem; color: var(--sage-deep); }
+  .go::after { content: ' →'; display: inline-block; transition: transform 0.3s var(--ease); }
+  .slide a:hover .go::after { transform: translateX(4px); }
+
+  .bar { height: 3px; background: rgb(184 154 99 / 0.25); border-radius: 3px; overflow: hidden; }
+  .bar span { display: block; height: 100%; width: 0; background: var(--sage-deep); border-radius: 3px; transition: width 0.3s; }
+
+  @media (max-width: 560px) {
+    .carousel { padding: 64px 0 56px; }
+    .controls .arrow-link { display: none; }
+    .slide { flex-basis: 78vw; }
+  }
+</style>
+
+<script>
+  const track = document.querySelector<HTMLElement>('[data-carousel]');
+  const bar = document.querySelector<HTMLElement>('[data-bar]');
+  if (track) {
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const step = () => {
+      const slide = track.querySelector<HTMLElement>('.slide');
+      return slide ? slide.offsetWidth + 22 : track.clientWidth * 0.8;
+    };
+    const atEnd = () => track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+    const go = (dir: number) => {
+      if (dir > 0 && atEnd()) track.scrollTo({ left: 0 });
+      else if (dir < 0 && track.scrollLeft <= 4) track.scrollTo({ left: track.scrollWidth });
+      else track.scrollBy({ left: dir * step() });
+    };
+    document.querySelector('[data-next]')?.addEventListener('click', () => { go(1); pause(8000); });
+    document.querySelector('[data-prev]')?.addEventListener('click', () => { go(-1); pause(8000); });
+
+    const update = () => {
+      const max = track.scrollWidth - track.clientWidth;
+      if (bar) bar.style.width = `${max > 0 ? Math.max(8, (track.scrollLeft / max) * 100) : 100}%`;
+    };
+    track.addEventListener('scroll', update, { passive: true });
+    update();
+
+    // Gentle autoplay: pauses on hover, touch, keyboard focus, when off screen, or with reduced motion
+    let hovering = false;
+    let visible = false;
+    let pausedUntil = 0;
+    const pause = (ms: number) => (pausedUntil = Date.now() + ms);
+    track.addEventListener('pointerenter', () => (hovering = true));
+    track.addEventListener('pointerleave', () => (hovering = false));
+    track.addEventListener('touchstart', () => pause(8000), { passive: true });
+    track.addEventListener('focusin', () => (hovering = true));
+    track.addEventListener('focusout', () => (hovering = false));
+    new IntersectionObserver(([e]) => (visible = e.isIntersecting), { threshold: 0.3 }).observe(track);
+    if (!reduce) {
+      window.setInterval(() => {
+        if (visible && !hovering && Date.now() > pausedUntil && !document.hidden) go(1);
+      }, 3500);
+    }
+  }
+</script>

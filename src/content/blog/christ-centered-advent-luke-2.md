@@ -5,6 +5,13 @@ pubDate: 2026-11-06
 category: "Holidays"
 product: "luke-2-advent-cards"
 draft: false
+faqs:
+  - q: "How many verses are in Luke 2?"
+    a: "Luke 2 has 52 verses, so you can read a few each day in December and finish by Christmas Eve."
+  - q: "How long does a daily Advent reading take?"
+    a: "About five minutes: read the day's verses, ask one question, and you're done."
+  - q: "What chapter tells the Christmas story?"
+    a: "Luke 2 tells the story of the Savior's birth in order, from the journey to Bethlehem to the shepherds and to Simeon and Anna in the temple. Many families also read Matthew 2 for the wise men."
 ---
 
 December fills up quickly with parties, programs, and shopping lists. A daily Advent reading is one of the simplest ways to keep the Savior at the center, and Luke 2 is the perfect place to spend it. In one chapter you get the journey to Bethlehem, the angels, the shepherds, Simeon and Anna in the temple, and the boy Jesus teaching the elders.
@@ -54,3 +61,5 @@ Save the last reading for Christmas Eve and read it by the tree with the lights 
 > And the shepherds returned, glorifying and praising God for all the things that they had heard and seen, as it was told unto them.
 >
 > — Luke 2:20
+
+**Keep reading:** [The 12 Days of Christmas Scripture Reading Plan](/blog/12-days-of-christmas-scripture-reading/) · [How to Act Out the Nativity on Christmas Eve](/blog/christmas-eve-nativity-luke-2/)

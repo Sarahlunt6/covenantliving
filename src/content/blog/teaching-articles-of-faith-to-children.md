@@ -5,6 +5,13 @@ pubDate: 2026-11-08
 category: "Primary"
 product: "articles-of-faith-cards"
 draft: false
+faqs:
+  - q: "How many Articles of Faith are there?"
+    a: "Thirteen. The Prophet Joseph Smith wrote them in 1842."
+  - q: "What is the first Article of Faith?"
+    a: "\"We believe in God, the Eternal Father, and in His Son, Jesus Christ, and in the Holy Ghost.\""
+  - q: "How long does it take a child to memorize the Articles of Faith?"
+    a: "At one article a month, about a year. At one every two weeks, about six months. Short daily practice and regular review make the biggest difference."
 ---
 
 The Articles of Faith are thirteen short statements of what we believe. The Prophet Joseph Smith wrote them in 1842, and they're still one of the clearest ways to explain the restored gospel of Jesus Christ. They're also wonderful for children to memorize. Once those words are in a child's heart, they stay there.
@@ -63,3 +70,5 @@ Memorizing is a great start, but the goal is testimony. When you reach the thirt
 > — Articles of Faith 1:13
 
 Ask, "When did you see someone being honest this week? How can we do good to someone tomorrow?" That's when the words start becoming part of who they are.
+
+**Keep reading:** [Getting Ready for Come Follow Me 2027](/blog/come-follow-me-2027-new-testament-family/) · [How to Act Out the Nativity on Christmas Eve](/blog/christmas-eve-nativity-luke-2/)

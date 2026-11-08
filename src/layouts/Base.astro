@@ -8,12 +8,58 @@ interface Props {
   image?: string;
   /** Home page: header sits see-through over the full-screen hero until you scroll */
   overlayHeader?: boolean;
+  /** Full title override (otherwise "Title | Covenant Living") */
+  fullTitle?: string;
+  /** 'article' for blog posts */
+  ogType?: 'website' | 'article';
+  /** Extra structured data (schema.org JSON-LD objects) for this page */
+  jsonLd?: Record<string, unknown>[];
+  /** Keep this page out of search results */
+  noindex?: boolean;
+  publishedTime?: Date;
+  modifiedTime?: Date;
 }
 
-const { title, description = SITE.tagline, image, overlayHeader = false } = Astro.props;
-const pageTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} | ${SITE.tagline}`;
+const {
+  title,
+  description = SITE.tagline,
+  image,
+  overlayHeader = false,
+  fullTitle,
+  ogType = 'website',
+  jsonLd = [],
+  noindex = false,
+  publishedTime,
+  modifiedTime,
+} = Astro.props;
+const pageTitle = fullTitle ?? (title ? `${title} | ${SITE.name}` : `${SITE.name} | ${SITE.tagline}`);
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const ogImage = image ? new URL(image, Astro.site).href : undefined;
+const ogImage = new URL(image ?? SITE.ogImage, Astro.site).href;
+const siteUrl = new URL('/', Astro.site).href;
+// Who publishes this site: shown to Google and AI search on every page
+const siteGraph = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${siteUrl}#organization`,
+    name: SITE.name,
+    url: siteUrl,
+    logo: new URL('/favicon.svg', Astro.site).href,
+    description: SITE.tagline,
+    sameAs: [SITE.etsyShopUrl, SITE.pinterestUrl].filter(Boolean),
+    founder: { '@id': `${siteUrl}about/#sarah` },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${siteUrl}#website`,
+    name: SITE.name,
+    url: siteUrl,
+    inLanguage: 'en-US',
+    publisher: { '@id': `${siteUrl}#organization` },
+  },
+];
+const structured = [...siteGraph, ...jsonLd];
 const path = Astro.url.pathname;
 const nav = [
   { href: '/blog/', label: 'Blog' },
@@ -31,15 +77,24 @@ const nav = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    {publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime.toISOString()} />}
+    <link rel="alternate" type="text/plain" title="Site summary for AI tools" href="/llms.txt" />
+    <script type="application/ld+json" set:html={JSON.stringify(structured)} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

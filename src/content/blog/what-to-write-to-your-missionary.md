@@ -5,6 +5,13 @@ pubDate: 2026-11-08
 category: "Missionary"
 product: "missionary-mom-journal"
 draft: false
+faqs:
+  - q: "What should I write in my missionary's weekly email?"
+    a: "Respond to something from their letter, share a small detail from home, include a scripture or thought from your own study, and end with a line of encouragement."
+  - q: "What should I avoid writing to my missionary?"
+    a: "Long lists of problems at home they can't help with, pressure about school or jobs after the mission, and reminders of everything they're missing."
+  - q: "How long should an email to a missionary be?"
+    a: "Long enough to feel personal and short enough to read during their limited email time. A few warm paragraphs is usually right."
 ---
 
 When your missionary first leaves, the weekly email is the highlight of your week. By month six, you might find yourself staring at a blank screen, wondering what's left to say that you haven't said already.
@@ -48,3 +55,5 @@ You'll also find it easier to plan packages and holidays ahead of time when you 
 > — Isaiah 40:31
 
 Your missionary is doing hard, holy work. So are you. Every email is one more way to carry them in prayer.
+
+**Keep reading:** [Planning Missionary Care Packages for the Whole Year](/blog/missionary-care-packages-all-year/) · [What to Send Your Missionary for Christmas](/blog/missionary-christmas-package-guide/)
