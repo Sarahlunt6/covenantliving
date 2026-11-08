@@ -108,9 +108,9 @@ export const PRODUCTS: Product[] = [
     name: '2027 Daily Scripture Cards',
     section: 'Come Follow Me',
     blurb: 'Daily New Testament scripture cards, in Cottage and Bold styles.',
-    price: '',
-    image: '',
-    etsyUrl: '',
+    price: '$10.00',
+    image: '/images/products/daily-scripture-cards-2027.webp',
+    etsyUrl: 'https://covenantliving.etsy.com/listing/4586071261',
   },
   {
     slug: 'primary-lesson-plans',
