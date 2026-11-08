@@ -185,9 +185,9 @@ export const PRODUCTS: Product[] = [
     name: '52-Week Temple Attendance Tracker',
     section: 'Scripture Wall Art',
     blurb: 'A year-long temple goal chart to color in week by week.',
-    price: '',
-    image: '',
-    etsyUrl: '',
+    price: '$3.00',
+    image: '/images/products/temple-tracker.webp',
+    etsyUrl: 'https://covenantliving.etsy.com/listing/4587292706',
   },
 ];
 
