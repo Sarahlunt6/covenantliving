@@ -20,7 +20,7 @@ Blog-first site for the Covenant Living Etsy shop. Built with Astro, hosted free
    - `title`: include the main search phrase
    - `description`: one sentence, under 160 characters
    - `pubDate`: `2026-11-11` format
-   - `category`: `Come Follow Me`, `Missionary`, `Primary`, or `Holidays`
+   - `category`: `Come Follow Me`, `Missionary`, `Primary`, `Holidays`, or `Gospel Living`
    - `product`: the `slug` of the matching product in `src/data/products.ts`
    - `heroImage` / `pinImage` (optional): paths like `/images/my-post/pin.jpg` (pin image 1000×1500)
    - `draft`: `true` hides it from the live site; set to `false` to publish

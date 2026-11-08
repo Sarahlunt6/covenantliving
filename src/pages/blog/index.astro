@@ -4,7 +4,7 @@ import PostCard from '../../components/PostCard.astro';
 import { getPosts } from '../../data/posts';
 
 const posts = await getPosts();
-const categories = ['Come Follow Me', 'Missionary', 'Primary', 'Holidays'].filter((c) =>
+const categories = ['Come Follow Me', 'Missionary', 'Primary', 'Holidays', 'Gospel Living'].filter((c) =>
   posts.some((p) => p.data.category === c),
 );
 ---

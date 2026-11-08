@@ -10,7 +10,7 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string().max(160),
     pubDate: z.coerce.date(),
-    category: z.enum(['Come Follow Me', 'Missionary', 'Primary', 'Holidays']),
+    category: z.enum(['Come Follow Me', 'Missionary', 'Primary', 'Holidays', 'Gospel Living']),
     heroImage: z.string().optional(),
     pinImage: z.string().optional(),
     // Slug of the product in src/data/products.ts this post sells
