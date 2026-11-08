@@ -108,7 +108,7 @@ export const PRODUCTS: Product[] = [
     name: 'New Testament Reading Chart (260 Chapters)',
     section: 'Come Follow Me',
     blurb: 'Color in every chapter of the New Testament as you read, from Matthew to Revelation.',
-    price: '$3.50',
+    price: '$3.00',
     image: '/images/products/nt-reading-chart-2027.webp',
     etsyUrl: 'https://covenantliving.etsy.com/listing/4553417148',
   },
