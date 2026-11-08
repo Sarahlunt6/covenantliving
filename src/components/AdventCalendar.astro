@@ -29,6 +29,7 @@ const href = product?.etsyUrl || SITE.etsyShopUrl;
               data-title={d.title}
               data-ref={d.ref}
               data-text={d.text}
+              data-image={d.day <= SITE.adventCardDays ? `/images/advent/dec${String(d.day).padStart(2, '0')}.webp` : undefined}
               aria-controls="advent-reading"
               aria-label={`December ${d.day}`}
             >
@@ -55,6 +56,10 @@ const href = product?.etsyUrl || SITE.etsyShopUrl;
             Tap any numbered door to open it and read that day's verse from Luke 2.
           </p>
           <p class="r-ref"></p>
+          <img class="r-card" alt="" hidden width="560" height="744" />
+          <p class="r-more" hidden>
+            The printable card for this day adds a Ponder question for your family.
+          </p>
         </div>
         <a class="btn btn--light" href={href} target="_blank" rel="noopener">Get all 24 printable cards</a>
       </div>
@@ -154,6 +159,14 @@ const href = product?.etsyUrl || SITE.etsyShopUrl;
   .reading-inner.swap { opacity: 0; transform: translateY(8px); }
   .r-title { color: var(--cream); font-size: clamp(1.6rem, 2.6vw, 2.1rem); margin: 0.2em 0 0.5em; }
   .r-text { font-family: var(--serif); font-size: 1.35rem; font-style: italic; line-height: 1.5; color: var(--cream); margin: 0 0 12px; }
+  .r-card {
+    width: min(280px, 100%);
+    border-radius: 6px;
+    box-shadow: 0 18px 40px rgb(0 0 0 / 0.35);
+    margin: 4px 0 24px;
+    rotate: -1.5deg;
+  }
+  .r-more { color: rgb(251 247 239 / 0.7); font-size: 0.92rem; margin: -12px 0 24px; }
   .r-ref { color: var(--gold); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.8rem; margin: 0 0 24px; }
 
   @media (max-width: 900px) {
@@ -200,13 +213,24 @@ const href = product?.etsyUrl || SITE.etsyShopUrl;
     const doors = [...root.querySelectorAll<HTMLButtonElement>('.door')];
     const q = (sel: string) => panel.querySelector<HTMLElement>(sel)!;
 
-    const show = (title: string, day: string, text: string, ref: string) => {
+    const card = panel.querySelector<HTMLImageElement>('.r-card')!;
+    const more = q('.r-more');
+    const show = (title: string, day: string, text: string, ref: string, image = '', isDay = false) => {
       panel.classList.add('swap');
+      if (image) new Image().src = image;
       window.setTimeout(() => {
         q('.r-day').textContent = day;
         q('.r-title').textContent = title;
         q('.r-text').textContent = text;
         q('.r-ref').textContent = ref;
+        // Days with a card image show the real printed card instead of the plain verse
+        q('.r-text').hidden = q('.r-ref').hidden = !!image;
+        card.hidden = !image;
+        if (image) {
+          card.src = image;
+          card.alt = `Printed card for ${day}: ${title}. ${text} ${ref}`;
+        }
+        more.hidden = !isDay || !!image;
         panel.classList.remove('swap');
       }, 220);
     };
@@ -234,7 +258,7 @@ const href = product?.etsyUrl || SITE.etsyShopUrl;
           opened.push(day);
           save();
         }
-        show(door.dataset.title ?? '', `December ${day}`, door.dataset.text ?? '', door.dataset.ref ?? '');
+        show(door.dataset.title ?? '', `December ${day}`, door.dataset.text ?? '', door.dataset.ref ?? '', door.dataset.image ?? '', true);
         if (window.matchMedia('(max-width: 900px)').matches) {
           document.getElementById('advent-reading')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }

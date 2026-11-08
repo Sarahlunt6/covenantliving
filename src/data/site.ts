@@ -17,11 +17,15 @@ export const SITE = {
   heroProducts: ['gratitude-journal', 'luke-2-advent-cards', 'missionary-christmas-package'],
   // Interactive Luke 2 Advent calendar on the home page. Set to false after Christmas.
   showAdvent: true,
+  // How many days show the real printed card (images in public/images/advent/dec01.webp …).
+  // Later days show the verse as text plus a link to the Etsy listing.
+  adventCardDays: 5,
   aiDisclosure:
     'Some illustrations on this site were created with the help of AI tools and finished by hand.',
 };
 
 export const CATALOG_SECTIONS = [
+  'Christmas',
   'Missionary Printables',
   'Come Follow Me',
   'Invitations & Canva Templates',
