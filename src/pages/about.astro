@@ -3,22 +3,129 @@ import Base from '../layouts/Base.astro';
 import { SITE } from '../data/site';
 ---
 
-<Base title="About" description="Covenant Living makes gospel-centered printables for families, missionaries, and Primary leaders.">
-  <section class="read section prose">
-    <p class="eyebrow">About</p>
-    <h1>Hi, I'm Sarah</h1>
-    <!-- DRAFT: replace with your story in your own words. Keep it to 3–5 short paragraphs. -->
-    <p>
-      I'm Sarah, the maker behind Covenant Living, based in St. George, Utah. I design
-      printables that make it easier to bring the gospel into everyday life: Come Follow Me helps for families,
-      keepsakes for missionary moms, and ready-to-use resources for Primary leaders.
-    </p>
-    <p>[Your story: why you started Covenant Living and who you make it for.]</p>
-    <p>
-      Every printable is an instant download through my <a href={SITE.etsyShopUrl} target="_blank" rel="noopener">Etsy shop</a>,
-      and the blog shares ideas you can use even if you never buy a thing.
-    </p>
-    <hr class="divider" />
-    <p><a class="btn" href="/free-printable/">Get a free printable</a></p>
+<Base
+  title="About"
+  description="Covenant Living began after Sarah's mission in Barcelona, Spain: gospel-centered printables for missionaries, families, and Primary leaders."
+>
+  <section class="about-head">
+    <div class="read">
+      <p class="eyebrow" data-reveal>About</p>
+      <h1 data-reveal style="--d: 100ms">Hi, I'm Sarah</h1>
+      <p class="lead" data-reveal style="--d: 200ms">
+        Covenant Living began with a desire I couldn't set down: to help people feel closer to Jesus Christ in their
+        own homes.
+      </p>
+    </div>
   </section>
+
+  <article class="read prose about">
+    <h2 data-reveal>Where it started</h2>
+    <p data-reveal>
+      A few years ago, I came home from my full-time mission in Barcelona, Spain. I spent my days walking the streets
+      of a beautiful city, talking with people about the Savior in a language I was still learning. I watched the
+      gospel of Jesus Christ change lives, including my own. I met people who had almost nothing and yet carried a
+      peace I had never seen before.
+    </p>
+
+    <figure class="pull" data-reveal>
+      <blockquote>
+        Faith is not a feeling you wait for. It is something you build, one scripture and one prayer at a time.
+      </blockquote>
+      <figcaption>What my mission taught me</figcaption>
+    </figure>
+
+    <p data-reveal>
+      That mission shaped everything about who I am. It left me with a permanent soft spot for missionaries, and for
+      the parents, leaders, and teachers standing behind them. Covenant Living grew out of that.
+    </p>
+
+    <h2 data-reveal>What I make</h2>
+    <p data-reveal>Most of what I create is built for the mission field and the people surrounding it:</p>
+    <ul class="makes" data-reveal>
+      <li><a href="/shop/#missionary-printables">Missionary printables</a>, study tools, and Preach My Gospel lesson resources</li>
+      <li>Countdown trackers, encouragement cards, farewell invitations, and gifts for sisters and elders</li>
+      <li>Planners for returned missionaries figuring out what comes next</li>
+      <li><a href="/shop/#primary-resources">Lesson plans for Primary</a> and Sunday School leaders preparing on a Saturday night</li>
+      <li><a href="/shop/#come-follow-me">Scripture study journals</a> for anyone trying to stay in the word day by day</li>
+      <li><a href="/shop/#scripture-wall-art">Scripture wall art</a> and Book of Mormon prints, because the words of Christ belong where we can see them</li>
+    </ul>
+    <p data-reveal>
+      Everything is an instant digital download: high-resolution PDFs, ready the moment you check out, to print at
+      home or at a local print shop. Nothing ships, so nothing keeps you waiting.
+    </p>
+
+    <h2 data-reveal>How I make it</h2>
+    <p data-reveal>
+      I make every file the way I would want to use it myself. Clean layouts with room to breathe. Soft neutrals:
+      cream, warm white, taupe, and sage. Elegant serif type and delicate script, never loud or cluttered.
+    </p>
+    <p data-reveal>
+      I test every page at full print size before it goes live, so lines stay crisp and colors stay true. When a
+      product runs long, I include ink-saver versions, because I know what printing a whole packet costs.
+    </p>
+
+    <h2 data-reveal>Why "Covenant Living"</h2>
+    <p data-reveal>
+      Covenants are promises. Living them is a daily practice, not a single moment. That is what I want this shop to
+      support: the quiet, ordinary, faithful work of keeping promises with God, whether you are teaching a lesson,
+      writing to a missionary, or serving somewhere far from home.
+    </p>
+    <p data-reveal>
+      Thank you for being here, and for letting my small work be part of yours. If there is something you need and
+      cannot find, please <a href={SITE.etsyShopUrl} target="_blank" rel="noopener">message me on Etsy</a>. I read
+      every note, and several of my favorite products started as a customer's request.
+    </p>
+
+    <p class="signoff" data-reveal>With love,<span>Sarah</span></p>
+
+    <div class="ctas" data-reveal>
+      <a class="btn" href="/shop/">Browse printables</a>
+      <a class="btn btn--ghost" href="/free-printable/">Get a free printable</a>
+    </div>
+  </article>
 </Base>
+
+<style>
+  .about-head {
+    padding: 80px 0 40px;
+    background:
+      radial-gradient(ellipse at 10% 0%, rgb(217 196 154 / 0.35), transparent 60%),
+      radial-gradient(ellipse at 100% 100%, rgb(138 154 123 / 0.22), transparent 60%),
+      var(--cream);
+  }
+  .about-head h1 { font-size: clamp(2.8rem, 7vw, 4.6rem); line-height: 1; margin: 0.15em 0 0.35em; }
+  .lead { font-family: var(--serif); font-size: clamp(1.4rem, 2.8vw, 1.8rem); line-height: 1.4; font-style: italic; color: var(--sage-deep); margin: 0; }
+  .about { padding-top: 24px; }
+  .about h2 { font-size: clamp(1.6rem, 3vw, 2rem); }
+  .pull {
+    margin: 2.2em 0;
+    padding: 36px 32px;
+    background: var(--forest);
+    color: var(--cream);
+    border-radius: 16px;
+    text-align: center;
+  }
+  .pull blockquote {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+    line-height: 1.3;
+    color: var(--cream);
+  }
+  .pull figcaption {
+    margin-top: 16px;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .makes { padding-left: 1.2em; }
+  .makes li::marker { color: var(--wheat-deep); content: '✦  '; }
+  .signoff { font-family: var(--serif); font-size: 1.3rem; font-style: italic; margin-top: 2em; }
+  .signoff span { display: block; font-size: 2.2rem; color: var(--sage-deep); }
+  .ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+</style>

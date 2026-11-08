@@ -90,7 +90,7 @@ export const PRODUCTS: Product[] = [
     section: 'Come Follow Me',
     blurb: 'One page per week, dated to the 2027 Come Follow Me schedule.',
     price: '$10.00',
-    image: '',
+    image: '/images/products/family-nt-journal-2027.webp',
     etsyUrl: 'https://covenantliving.etsy.com/listing/4609902054',
     featured: true,
   },
