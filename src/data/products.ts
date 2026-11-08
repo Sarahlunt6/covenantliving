@@ -105,12 +105,12 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: 'nt-reading-chart-2027',
-    name: '2027 New Testament Reading Chart Bundle',
+    name: 'New Testament Reading Chart (260 Chapters)',
     section: 'Come Follow Me',
-    blurb: 'Track your family’s 2027 Come Follow Me reading week by week.',
-    price: '',
-    image: '',
-    etsyUrl: '',
+    blurb: 'Color in every chapter of the New Testament as you read, from Matthew to Revelation.',
+    price: '$3.50',
+    image: '/images/products/nt-reading-chart-2027.webp',
+    etsyUrl: 'https://covenantliving.etsy.com/listing/4553417148',
   },
   {
     slug: 'daily-scripture-cards-2027',
