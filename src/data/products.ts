@@ -81,7 +81,7 @@ export const PRODUCTS: Product[] = [
     section: 'Missionary Printables',
     blurb: 'Lessons 1–3 study flip books for Spanish-speaking missionaries.',
     price: '',
-    image: '',
+    image: '/images/products/spanish-pmg-flip-books.webp',
     etsyUrl: '',
   },
   {
