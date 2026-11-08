@@ -80,9 +80,9 @@ export const PRODUCTS: Product[] = [
     name: 'Preach My Gospel Flip Books in Spanish',
     section: 'Missionary Printables',
     blurb: 'Lessons 1–3 study flip books for Spanish-speaking missionaries.',
-    price: '',
+    price: '$8.00',
     image: '/images/products/spanish-pmg-flip-books.webp',
-    etsyUrl: '',
+    etsyUrl: 'https://covenantliving.etsy.com/listing/4589261355',
   },
   {
     slug: 'family-nt-journal-2027',
