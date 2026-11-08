@@ -8,13 +8,18 @@ import { SITE } from '../data/site';
   description="Covenant Living began after Sarah's mission in Barcelona, Spain: gospel-centered printables for missionaries, families, and Primary leaders."
 >
   <section class="about-head">
-    <div class="read">
+    <div class="wrap head-grid">
+      <figure class="portrait" data-reveal style="--d: 150ms">
+        <img src="/images/about/sarah.webp" alt="Sarah, the maker behind Covenant Living" width="720" height="900" />
+      </figure>
+      <div class="head-copy">
       <p class="eyebrow" data-reveal>About</p>
       <h1 data-reveal style="--d: 100ms">Hi, I'm Sarah</h1>
       <p class="lead" data-reveal style="--d: 200ms">
         Covenant Living began with a desire I couldn't set down: to help people feel closer to Jesus Christ in their
         own homes.
       </p>
+      </div>
     </div>
   </section>
 
@@ -93,9 +98,38 @@ import { SITE } from '../data/site';
       radial-gradient(ellipse at 100% 100%, rgb(138 154 123 / 0.22), transparent 60%),
       var(--cream);
   }
+  .head-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 56px;
+    align-items: center;
+    max-width: 960px;
+  }
+  .head-copy { order: -1; }
+  .portrait { margin: 0; position: relative; }
+  .portrait::before {
+    content: '';
+    position: absolute;
+    inset: 18px -18px -18px 18px;
+    border: 1.5px solid var(--wheat);
+    border-radius: 999px 999px 18px 18px;
+  }
+  .portrait img {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 999px 999px 18px 18px;
+    box-shadow: var(--shadow-lift);
+  }
   .about-head h1 { font-size: clamp(2.8rem, 7vw, 4.6rem); line-height: 1; margin: 0.15em 0 0.35em; }
   .lead { font-family: var(--serif); font-size: clamp(1.4rem, 2.8vw, 1.8rem); line-height: 1.4; font-style: italic; color: var(--sage-deep); margin: 0; }
-  .about { padding-top: 24px; }
+  .about { padding-top: 40px; }
+  @media (max-width: 760px) {
+    .head-grid { grid-template-columns: 1fr; gap: 32px; }
+    .head-copy { order: 0; }
+    .portrait { width: min(280px, 75%); margin-inline: auto; }
+  }
   .about h2 { font-size: clamp(1.6rem, 3vw, 2rem); }
   .pull {
     margin: 2.2em 0;
