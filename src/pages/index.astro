@@ -50,7 +50,6 @@ const ribbon = [...CATALOG_SECTIONS, ...CATALOG_SECTIONS];
       )}
     </div>
 
-    <a class="scroll-cue" href="#collections" aria-label="Scroll to collections"><span></span></a>
   </section>
 
   <nav class="ribbon" id="collections" aria-label="Shop by collection">
@@ -200,29 +199,6 @@ const ribbon = [...CATALOG_SECTIONS, ...CATALOG_SECTIONS];
   .fan .f2 { animation-delay: 0.5s; }
   .fan .f3 { animation-delay: 0.7s; }
   @keyframes fan-in { from { opacity: 0; transform: translateY(60px) scale(0.92); } to { opacity: 1; transform: none; } }
-
-  .scroll-cue {
-    position: absolute;
-    left: 50%;
-    bottom: 28px;
-    width: 26px;
-    height: 42px;
-    margin-left: -13px;
-    border: 2px solid rgb(251 247 239 / 0.6);
-    border-radius: 14px;
-  }
-  .scroll-cue span {
-    position: absolute;
-    left: 50%;
-    top: 8px;
-    width: 4px;
-    height: 8px;
-    margin-left: -2px;
-    border-radius: 2px;
-    background: var(--cream);
-    animation: cue 1.8s ease-in-out infinite;
-  }
-  @keyframes cue { 0% { opacity: 0; transform: translateY(0); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(14px); } }
 
   /* ---------- Collection ribbon ---------- */
   .ribbon {
