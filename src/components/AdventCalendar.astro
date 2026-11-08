@@ -1,0 +1,244 @@
+---
+import { ADVENT } from '../data/advent';
+import { getProduct } from '../data/products';
+import { SITE } from '../data/site';
+
+const product = getProduct('luke-2-advent-cards');
+const href = product?.etsyUrl || SITE.etsyShopUrl;
+---
+
+<section class="advent" id="advent" aria-labelledby="advent-title">
+  <div class="wrap">
+    <div class="head" data-reveal>
+      <p class="eyebrow">Luke 2 Advent calendar</p>
+      <h2 id="advent-title">Open a door, read a verse</h2>
+      <p class="intro" data-advent-note>
+        Twenty-four days through the Christmas story. Peek inside any door now. From December 1, the doors
+        unlock one day at a time.
+      </p>
+    </div>
+
+    <div class="layout">
+      <ol class="doors" data-advent>
+        {ADVENT.map((d, i) => (
+          <li data-reveal style={`--d: ${(i % 6) * 60}ms`}>
+            <button
+              class="door"
+              type="button"
+              data-day={d.day}
+              data-title={d.title}
+              data-ref={d.ref}
+              data-text={d.text}
+              aria-controls="advent-reading"
+              aria-label={`December ${d.day}`}
+            >
+              <span class="door-inner">
+                <span class="face front" aria-hidden="true">
+                  <span class="num">{d.day}</span>
+                  <span class="sprig">✦</span>
+                </span>
+                <span class="face back" aria-hidden="true">
+                  <span class="b-title">{d.title}</span>
+                  <span class="b-ref">{d.ref}</span>
+                </span>
+              </span>
+            </button>
+          </li>
+        ))}
+      </ol>
+
+      <div class="reading" id="advent-reading" aria-live="polite" data-reveal style="--d: 200ms">
+        <div class="reading-inner" data-reading>
+          <p class="eyebrow r-day">Choose a door</p>
+          <h3 class="r-title">The story of the first Christmas, one day at a time</h3>
+          <p class="r-text">
+            Tap any numbered door to open it and read that day's verse from Luke 2.
+          </p>
+          <p class="r-ref"></p>
+        </div>
+        <a class="btn btn--light" href={href} target="_blank" rel="noopener">Get all 24 printable cards</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .advent {
+    background:
+      radial-gradient(ellipse at 10% 0%, rgb(201 169 106 / 0.18), transparent 55%),
+      radial-gradient(ellipse at 100% 100%, rgb(138 154 123 / 0.25), transparent 55%),
+      var(--forest);
+    color: var(--cream);
+    padding: 88px 0;
+    overflow: hidden;
+  }
+  .advent h2 { color: var(--cream); margin: 0 0 0.3em; font-size: clamp(2.2rem, 5vw, 3.6rem); }
+  .advent .eyebrow { color: var(--gold); }
+  .intro { color: rgb(251 247 239 / 0.78); max-width: 600px; font-size: 1.1rem; }
+  .head { margin-bottom: 40px; }
+  .layout { display: grid; grid-template-columns: 1.35fr 1fr; gap: 40px; align-items: start; }
+  .doors {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+  }
+  .door {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 3.6;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    perspective: 900px;
+    font: inherit;
+    color: inherit;
+  }
+  .door-inner {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.8s var(--ease);
+  }
+  .door:hover .door-inner { transform: rotateY(-14deg); }
+  .door.open .door-inner { transform: rotateY(180deg); }
+  .face {
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8px;
+  }
+  .front {
+    background: linear-gradient(160deg, #f8f1e2, #ecdfc4);
+    color: var(--forest);
+    box-shadow: inset 0 0 0 1px rgb(201 169 106 / 0.6), 0 8px 18px rgb(0 0 0 / 0.25);
+  }
+  .num { font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 600; line-height: 1; }
+  .sprig { color: var(--gold); font-size: 0.8rem; margin-top: 6px; }
+  .back {
+    transform: rotateY(180deg);
+    background: linear-gradient(160deg, var(--gold), #a8864c);
+    color: var(--forest);
+    gap: 4px;
+  }
+  .b-title { font-family: var(--serif); font-weight: 600; font-size: clamp(0.8rem, 1.3vw, 1rem); line-height: 1.1; }
+  .b-ref { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .door.selected .back { box-shadow: 0 0 0 3px var(--cream), 0 10px 24px rgb(0 0 0 / 0.35); }
+  .door.today .front { box-shadow: inset 0 0 0 2px var(--gold), 0 0 0 4px rgb(201 169 106 / 0.35), 0 8px 18px rgb(0 0 0 / 0.25); animation: glow 2.4s ease-in-out infinite; }
+  @keyframes glow { 50% { box-shadow: inset 0 0 0 2px var(--gold), 0 0 0 8px rgb(201 169 106 / 0.15), 0 8px 18px rgb(0 0 0 / 0.25); } }
+  .door.locked .front { opacity: 0.55; }
+  .door.shake .door-inner { animation: shake 0.45s; }
+  @keyframes shake { 20%, 60% { transform: translateX(-4px); } 40%, 80% { transform: translateX(4px); } }
+
+  .reading {
+    position: sticky;
+    top: 110px;
+    background: rgb(251 247 239 / 0.06);
+    border: 1px solid rgb(201 169 106 / 0.35);
+    border-radius: 16px;
+    padding: 32px;
+  }
+  .reading-inner { min-height: 250px; transition: opacity 0.3s, transform 0.3s var(--ease); }
+  .reading-inner.swap { opacity: 0; transform: translateY(8px); }
+  .r-title { color: var(--cream); font-size: clamp(1.6rem, 2.6vw, 2.1rem); margin: 0.2em 0 0.5em; }
+  .r-text { font-family: var(--serif); font-size: 1.35rem; font-style: italic; line-height: 1.5; color: var(--cream); margin: 0 0 12px; }
+  .r-ref { color: var(--gold); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.8rem; margin: 0 0 24px; }
+
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; }
+    .reading { position: static; }
+  }
+  @media (max-width: 560px) {
+    .advent { padding: 64px 0; }
+    .doors { grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .reading { padding: 24px; }
+    .reading-inner { min-height: 0; }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-advent]');
+  const panel = document.querySelector<HTMLElement>('[data-reading]');
+  const note = document.querySelector<HTMLElement>('[data-advent-note]');
+
+  if (root && panel) {
+    const KEY = 'cl-advent-opened';
+    let opened: number[] = [];
+    try {
+      opened = JSON.parse(localStorage.getItem(KEY) ?? '[]');
+    } catch {
+      opened = [];
+    }
+    const save = () => {
+      try {
+        localStorage.setItem(KEY, JSON.stringify(opened));
+      } catch {
+        /* storage blocked: doors just won't stay open next visit */
+      }
+    };
+
+    // In December (1–24) only today and earlier can open. Any other time, it's preview mode.
+    const now = new Date();
+    const inAdvent = now.getMonth() === 11 && now.getDate() <= 24;
+    const today = inAdvent ? now.getDate() : 0;
+    if (inAdvent && note) {
+      note.textContent = `Today is December ${today}. Open today's door, or go back to any day you missed.`;
+    }
+
+    const doors = [...root.querySelectorAll<HTMLButtonElement>('.door')];
+    const q = (sel: string) => panel.querySelector<HTMLElement>(sel)!;
+
+    const show = (title: string, day: string, text: string, ref: string) => {
+      panel.classList.add('swap');
+      window.setTimeout(() => {
+        q('.r-day').textContent = day;
+        q('.r-title').textContent = title;
+        q('.r-text').textContent = text;
+        q('.r-ref').textContent = ref;
+        panel.classList.remove('swap');
+      }, 220);
+    };
+
+    doors.forEach((door) => {
+      const day = Number(door.dataset.day);
+      const locked = inAdvent && day > today;
+      door.classList.toggle('locked', locked);
+      door.classList.toggle('today', day === today);
+      if (!locked && opened.includes(day)) door.classList.add('open');
+      door.setAttribute('aria-pressed', String(door.classList.contains('open')));
+
+      door.addEventListener('click', () => {
+        if (locked) {
+          door.classList.remove('shake');
+          void door.offsetWidth;
+          door.classList.add('shake');
+          show('Not quite yet', `December ${day}`, `This door opens on December ${day}. Come back then!`, '');
+          return;
+        }
+        doors.forEach((d) => d.classList.remove('selected'));
+        door.classList.add('open', 'selected');
+        door.setAttribute('aria-pressed', 'true');
+        if (!opened.includes(day)) {
+          opened.push(day);
+          save();
+        }
+        show(door.dataset.title ?? '', `December ${day}`, door.dataset.text ?? '', door.dataset.ref ?? '');
+        if (window.matchMedia('(max-width: 900px)').matches) {
+          document.getElementById('advent-reading')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      });
+    });
+  }
+</script>

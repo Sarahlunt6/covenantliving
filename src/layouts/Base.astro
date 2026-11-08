@@ -6,9 +6,11 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  /** Home page: header sits see-through over the full-screen hero until you scroll */
+  overlayHeader?: boolean;
 }
 
-const { title, description = SITE.tagline, image } = Astro.props;
+const { title, description = SITE.tagline, image, overlayHeader = false } = Astro.props;
 const pageTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} | ${SITE.tagline}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = image ? new URL(image, Astro.site).href : undefined;
@@ -25,6 +27,7 @@ const nav = [
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
@@ -45,7 +48,7 @@ const nav = [
     />
   </head>
   <body>
-    <header class="site-header">
+    <header class:list={['site-header', { over: overlayHeader }]}>
       <div class="wrap bar">
         <a class="brand" href="/">
           <span class="brand-name">Covenant Living</span>
@@ -83,17 +86,34 @@ const nav = [
         </p>
       </div>
     </footer>
+    <script>
+      import '../scripts/site.ts';
+    </script>
   </body>
 </html>
 
 <style>
   .site-header {
-    background: var(--cream);
+    background: rgb(251 247 239 / 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--cream-deep);
     position: sticky;
     top: 0;
     z-index: 10;
+    transition: background 0.35s, border-color 0.35s, box-shadow 0.35s;
   }
+  .site-header.scrolled { box-shadow: 0 6px 24px rgb(58 58 50 / 0.08); }
+  .site-header.over { position: fixed; left: 0; right: 0; }
+  .site-header.over:not(.scrolled) {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-color: transparent;
+  }
+  .over:not(.scrolled) .brand-name,
+  .over:not(.scrolled) nav a { color: var(--cream); }
+  .over:not(.scrolled) .brand-sub { color: var(--wheat); }
   .bar {
     display: flex;
     align-items: center;
@@ -113,14 +133,25 @@ const nav = [
     font-weight: 700;
   }
   nav { display: flex; gap: 20px; flex-wrap: wrap; }
-  nav a { text-decoration: none; color: var(--ink); font-weight: 700; font-size: 0.95rem; }
+  nav a {
+    text-decoration: none;
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 0.95rem;
+    background: linear-gradient(var(--wheat), var(--wheat)) no-repeat 0 100% / 0 2px;
+    transition: background-size 0.35s var(--ease), color 0.25s;
+  }
   nav a:hover,
-  nav a[aria-current='page'] { color: var(--sage-deep); box-shadow: inset 0 -2px 0 var(--wheat); }
-  .site-footer { background: var(--cream-deep); margin-top: 64px; padding: 40px 0 24px; }
+  nav a[aria-current='page'] { color: var(--sage-deep); background-size: 100% 2px; }
+  .site-footer { background: var(--forest); color: var(--cream); margin-top: 64px; padding: 56px 0 28px; }
+  .site-footer .brand-name { color: var(--cream); font-size: 2rem; }
+  .site-footer .muted { color: rgb(251 247 239 / 0.7); }
+  .site-footer a { color: var(--cream); }
+  .site-footer a:hover { color: var(--gold); }
   .foot { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
   .foot p { margin: 0; }
   .foot-links { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
-  .fine { margin-top: 24px; border-top: 1px solid var(--wheat); padding-top: 16px; }
+  .fine { margin-top: 32px; border-top: 1px solid rgb(201 169 106 / 0.35); padding-top: 18px; }
   @media (max-width: 560px) {
     nav { gap: 14px; }
     nav a { font-size: 0.9rem; }

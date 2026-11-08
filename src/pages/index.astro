@@ -3,90 +3,278 @@ import Base from '../layouts/Base.astro';
 import PostCard from '../components/PostCard.astro';
 import ProductCard from '../components/ProductCard.astro';
 import EmailSignup from '../components/EmailSignup.astro';
+import AdventCalendar from '../components/AdventCalendar.astro';
 import { getPosts } from '../data/posts';
-import { PRODUCTS } from '../data/products';
-import { CATALOG_SECTIONS } from '../data/site';
+import { PRODUCTS, getProduct } from '../data/products';
+import { CATALOG_SECTIONS, SITE } from '../data/site';
 
 const latest = (await getPosts()).slice(0, 3);
 const featured = PRODUCTS.filter((p) => p.featured).slice(0, 3);
+const fan = SITE.heroProducts.map((slug) => getProduct(slug)).filter((p) => p?.image).slice(0, 3);
 const sectionSlug = (s: string) => s.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-');
+const ribbon = [...CATALOG_SECTIONS, ...CATALOG_SECTIONS];
 ---
 
-<Base>
-  <section class="hero">
-    <div class="wrap hero-inner">
-      <p class="eyebrow">Printables for Latter-day Saint families</p>
-      <h1>Bring the gospel home, one printable at a time</h1>
-      <p class="lead">
-        Come Follow Me helps, missionary keepsakes, Primary resources, and scripture art for families,
-        missionary moms, and Primary leaders.
-      </p>
-      <div class="ctas">
-        <a class="btn" href="/shop/">Browse printables</a>
-        <a class="btn btn--ghost" href="/blog/">Read the blog</a>
-      </div>
+<Base overlayHeader>
+  <section class="hero" data-hero>
+    <div class="hero-bg" aria-hidden="true">
+      {SITE.heroImages.map((src) => <img src={src} alt="" width="1600" height="1000" />)}
     </div>
+
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow" data-reveal>Printables for Latter-day Saint families</p>
+        <h1 data-reveal style="--d: 120ms">Bring the gospel home, <em>one printable at a time</em></h1>
+        <p class="lead" data-reveal style="--d: 240ms">
+          Come Follow Me helps, missionary keepsakes, Primary resources, and scripture art for families,
+          missionary moms, and Primary leaders.
+        </p>
+        <div class="ctas" data-reveal style="--d: 360ms">
+          <a class="btn btn--light" href="/shop/">Browse printables</a>
+          {SITE.showAdvent ? (
+            <a class="btn btn--outline-light" href="#advent">Open the Advent calendar</a>
+          ) : (
+            <a class="btn btn--outline-light" href="/blog/">Read the blog</a>
+          )}
+        </div>
+      </div>
+
+      {fan.length > 0 && (
+        <div class="fan" aria-hidden="true">
+          {fan.map((p, i) => (
+            <figure class={`f f${i + 1}`}>
+              <img src={p!.image} alt="" width="800" height="800" />
+            </figure>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <a class="scroll-cue" href="#collections" aria-label="Scroll to collections"><span></span></a>
   </section>
 
-  <section class="section">
-    <div class="wrap">
-      <h2>Shop by collection</h2>
-      <div class="sections">
-        {CATALOG_SECTIONS.map((s) => (
-          <a class="pill" href={`/shop/#${sectionSlug(s)}`}>{s}</a>
-        ))}
-      </div>
+  <nav class="ribbon" id="collections" aria-label="Shop by collection">
+    <div class="track">
+      {ribbon.map((s, i) => (
+        <>
+          <a
+            href={`/shop/#${sectionSlug(s)}`}
+            aria-hidden={i >= CATALOG_SECTIONS.length ? 'true' : undefined}
+            tabindex={i >= CATALOG_SECTIONS.length ? -1 : undefined}
+          >{s}</a>
+          <span class="star" aria-hidden="true">✦</span>
+        </>
+      ))}
     </div>
-  </section>
+  </nav>
 
   {featured.length > 0 && (
-    <section class="section section--tint">
+    <section class="section">
       <div class="wrap">
-        <h2>In season now</h2>
-        <div class="grid grid--3">
-          {featured.map((p) => <ProductCard product={p} />)}
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="eyebrow">In season now</p>
+            <h2>Made for this time of year</h2>
+          </div>
+          <a class="arrow-link" href="/shop/">Shop all printables</a>
+        </div>
+        <div class="grid grid--3 grid--stagger">
+          {featured.map((p, i) => <ProductCard product={p} delay={i * 120} />)}
         </div>
       </div>
     </section>
   )}
+
+  {SITE.showAdvent && <AdventCalendar />}
 
   {latest.length > 0 && (
     <section class="section">
       <div class="wrap">
-        <h2>From the blog</h2>
-        <div class="grid grid--3">
-          {latest.map((post) => <PostCard post={post} />)}
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="eyebrow">From the blog</p>
+            <h2>Ideas for gospel-centered homes</h2>
+          </div>
+          <a class="arrow-link" href="/blog/">All posts</a>
+        </div>
+        <div class="editorial">
+          {latest.map((post, i) => <PostCard post={post} feature={i === 0} delay={i * 120} />)}
         </div>
       </div>
     </section>
   )}
 
-  <section class="read">
-    <EmailSignup />
+  <section class="signup-band">
+    <div class="read" data-reveal>
+      <EmailSignup />
+    </div>
   </section>
 </Base>
 
 <style>
+  /* ---------- Hero ---------- */
   .hero {
-    padding: 88px 0 72px;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: min(100svh, 940px);
+    display: grid;
+    align-items: center;
+    padding: 140px 0 110px;
+    background: var(--forest);
+    color: var(--cream);
+  }
+  .hero-bg {
+    position: absolute;
+    inset: -6%;
+    z-index: -2;
+    transform: translateY(calc(var(--scroll, 0) * 0.3px));
+  }
+  .hero-bg img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    animation: kenburns 24s linear infinite;
+  }
+  .hero-bg img:nth-child(2) { animation-delay: 8s; }
+  .hero-bg img:nth-child(3) { animation-delay: 16s; }
+  .hero-bg img:only-child { animation: zoom 24s ease-in-out infinite alternate; opacity: 1; }
+  @keyframes kenburns {
+    0% { opacity: 0; transform: scale(1.04); }
+    6% { opacity: 1; }
+    33% { opacity: 1; }
+    40% { opacity: 0; transform: scale(1.18); }
+    100% { opacity: 0; transform: scale(1.18); }
+  }
+  @keyframes zoom { to { transform: scale(1.15); } }
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
     background:
-      radial-gradient(ellipse at 15% 20%, rgb(217 196 154 / 0.35), transparent 60%),
-      radial-gradient(ellipse at 85% 80%, rgb(138 154 123 / 0.25), transparent 60%),
-      var(--cream);
+      linear-gradient(90deg, rgb(28 34 25 / 0.82) 0%, rgb(28 34 25 / 0.55) 55%, rgb(28 34 25 / 0.25) 100%),
+      linear-gradient(180deg, rgb(28 34 25 / 0.45), transparent 30%, transparent 70%, rgb(28 34 25 / 0.6));
   }
-  .hero-inner { max-width: 760px; text-align: center; }
-  .lead { font-size: 1.2rem; color: var(--ink-soft); }
-  .ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
-  .sections { display: flex; flex-wrap: wrap; gap: 12px; }
-  .pill {
-    text-decoration: none;
+  .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items: center; }
+  .hero-copy {
+    transform: translateY(calc(var(--scroll, 0) * -0.15px));
+    opacity: calc(1 - var(--scroll, 0) / 800);
+  }
+  .hero .eyebrow { color: var(--gold); }
+  .hero h1 {
+    color: var(--cream);
+    font-size: clamp(2.8rem, 6.6vw, 5.6rem);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+    margin: 0.2em 0 0.35em;
+  }
+  .hero h1 em { color: var(--wheat); font-weight: 500; }
+  .lead { font-size: 1.2rem; color: rgb(251 247 239 / 0.85); max-width: 540px; }
+  .ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+
+  .fan { position: relative; aspect-ratio: 1 / 1; width: 100%; max-width: 520px; justify-self: end; }
+  .f {
+    position: absolute;
+    margin: 0;
+    width: 60%;
+    translate: calc(var(--mx, 0) * var(--depth) * 1px) calc(var(--my, 0) * var(--depth) * 1px);
+    transition: translate 0.6s var(--ease);
+  }
+  .f img {
+    border-radius: 12px;
+    box-shadow: 0 30px 60px rgb(0 0 0 / 0.45);
+    animation: float 7s ease-in-out infinite;
+  }
+  .f1 { left: 0; top: 14%; rotate: -9deg; --depth: 24; z-index: 1; }
+  .f2 { left: 22%; top: 0; rotate: 2deg; --depth: 44; z-index: 3; }
+  .f3 { right: 0; top: 30%; rotate: 10deg; --depth: 32; z-index: 2; }
+  .f2 img { animation-delay: -2.3s; }
+  .f3 img { animation-delay: -4.6s; }
+  @keyframes float { 50% { transform: translateY(-14px); } }
+  .fan .f { opacity: 0; animation: fan-in 1.2s var(--ease) forwards; }
+  .fan .f1 { animation-delay: 0.3s; }
+  .fan .f2 { animation-delay: 0.5s; }
+  .fan .f3 { animation-delay: 0.7s; }
+  @keyframes fan-in { from { opacity: 0; transform: translateY(60px) scale(0.92); } to { opacity: 1; transform: none; } }
+
+  .scroll-cue {
+    position: absolute;
+    left: 50%;
+    bottom: 28px;
+    width: 26px;
+    height: 42px;
+    margin-left: -13px;
+    border: 2px solid rgb(251 247 239 / 0.6);
+    border-radius: 14px;
+  }
+  .scroll-cue span {
+    position: absolute;
+    left: 50%;
+    top: 8px;
+    width: 4px;
+    height: 8px;
+    margin-left: -2px;
+    border-radius: 2px;
+    background: var(--cream);
+    animation: cue 1.8s ease-in-out infinite;
+  }
+  @keyframes cue { 0% { opacity: 0; transform: translateY(0); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(14px); } }
+
+  /* ---------- Collection ribbon ---------- */
+  .ribbon {
+    overflow: hidden;
+    background: var(--cream-deep);
+    border-block: 1px solid var(--wheat);
+    padding: 18px 0;
+  }
+  .track { display: flex; align-items: center; gap: 28px; width: max-content; animation: marquee 45s linear infinite; }
+  .ribbon:hover .track,
+  .ribbon:focus-within .track { animation-play-state: paused; }
+  .track a {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
     color: var(--ink);
-    font-weight: 700;
-    background: var(--white);
-    border: 1.5px solid var(--wheat);
-    padding: 0.6em 1.2em;
-    border-radius: 999px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.25s;
   }
-  .pill:hover { border-color: var(--sage); color: var(--sage-deep); }
-  .section h2 { margin-top: 0; }
+  .track a:hover { color: var(--sage-deep); }
+  .star { color: var(--wheat-deep); }
+  @keyframes marquee { to { transform: translateX(calc(-50% - 14px)); } }
+
+  /* ---------- Blog ---------- */
+  .editorial { display: grid; grid-template-columns: 1.35fr 1fr; gap: 24px; }
+  .editorial > :global(:first-child) { grid-row: span 2; }
+  .editorial > :global(:not(:first-child)) { flex-direction: row; }
+  .editorial > :global(:not(:first-child) .thumb) { width: 42%; flex-shrink: 0; aspect-ratio: auto; }
+
+  /* ---------- Signup ---------- */
+  .signup-band {
+    padding: 40px 0 8px;
+    background: linear-gradient(180deg, var(--cream), var(--cream-deep));
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .fan { max-width: 340px; justify-self: center; margin-top: 8px; }
+    .editorial { grid-template-columns: 1fr; }
+    .editorial > :global(:first-child) { grid-row: auto; }
+  }
+  @media (max-width: 560px) {
+    .hero { padding: 150px 0 96px; min-height: auto; }
+    .fan { display: none; }
+    .editorial > :global(:not(:first-child)) { flex-direction: column; }
+    .editorial > :global(:not(:first-child) .thumb) { width: 100%; aspect-ratio: 3 / 2; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-bg img:first-child { opacity: 1; }
+    .fan .f { opacity: 1; }
+    .track { flex-wrap: wrap; width: auto; justify-content: center; padding-inline: 16px; }
+    .track > :nth-child(n + 13) { display: none; }
+  }
 </style>

@@ -9,8 +9,13 @@
   --ink: #3a3a32;
   --ink-soft: #6b6a5e;
   --white: #ffffff;
+  --forest: #2c3627;
+  --forest-2: #3b4834;
+  --gold: #c9a96a;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --radius: 10px;
   --shadow: 0 1px 2px rgb(58 58 50 / 0.06), 0 6px 18px rgb(58 58 50 / 0.06);
+  --shadow-lift: 0 2px 4px rgb(58 58 50 / 0.06), 0 18px 40px rgb(58 58 50 / 0.14);
   --serif: 'Cormorant Garamond', Georgia, serif;
   --sans: 'Lato', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --wrap: 1120px;
@@ -22,6 +27,8 @@
 *::after { box-sizing: border-box; }
 
 html { -webkit-text-size-adjust: 100%; }
+
+[hidden] { display: none !important; }
 
 body {
   margin: 0;
@@ -73,7 +80,12 @@ h3 { font-size: 1.45rem; margin-top: 1.4em; }
   border: 0;
   cursor: pointer;
 }
-.btn:hover { background: var(--ink); color: var(--white); }
+.btn { transition: background 0.25s, color 0.25s, transform 0.25s var(--ease), box-shadow 0.25s; }
+.btn:hover { background: var(--ink); color: var(--white); transform: translateY(-2px); }
+.btn--light { background: var(--cream); color: var(--forest); }
+.btn--light:hover { background: var(--white); color: var(--forest); }
+.btn--outline-light { background: transparent; color: var(--cream); box-shadow: inset 0 0 0 1.5px rgb(251 247 239 / 0.75); }
+.btn--outline-light:hover { background: rgb(251 247 239 / 0.14); color: var(--white); }
 .btn--ghost { background: transparent; color: var(--sage-deep); box-shadow: inset 0 0 0 1.5px var(--sage); }
 .btn--ghost:hover { background: var(--sage-deep); color: var(--white); }
 
@@ -90,6 +102,63 @@ h3 { font-size: 1.45rem; margin-top: 1.4em; }
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lift); }
+
+/* Staggered gallery: middle column sits lower on wide screens */
+@media (min-width: 900px) {
+  .grid--stagger { grid-template-columns: repeat(3, 1fr); align-items: start; }
+  .grid--stagger > :nth-child(3n + 2) { margin-top: 56px; }
+  .grid--stagger.is-filtered > * { margin-top: 0; }
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px 24px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.section-head h2 { margin: 0; }
+.arrow-link { font-weight: 700; text-decoration: none; white-space: nowrap; }
+.arrow-link::after { content: ' →'; display: inline-block; transition: transform 0.3s var(--ease); }
+.arrow-link:hover::after { transform: translateX(4px); }
+
+/* Filter buttons (Shop and Blog) */
+.chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 28px 0 36px; }
+.chip {
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.5em 1.15em;
+  border-radius: 999px;
+  border: 1.5px solid var(--wheat);
+  background: var(--white);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.25s, border-color 0.25s, color 0.25s, transform 0.25s var(--ease);
+}
+.chip:hover { border-color: var(--sage); transform: translateY(-2px); }
+.chip[aria-pressed='true'] { background: var(--sage-deep); border-color: var(--sage-deep); color: var(--white); }
+
+/* Scroll reveal: hidden only when JS is running, so the page still works without it */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(32px); }
+  to { opacity: 1; transform: none; }
+}
+html.js [data-reveal] { opacity: 0; }
+html.js [data-reveal].in { opacity: 1; animation: rise 0.9s var(--ease) var(--d, 0ms) backwards; }
+
+/* Smooth fade between pages in browsers that support it */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-reveal] { opacity: 1; animation: none; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
 
 .divider {

@@ -4,35 +4,45 @@ import PostCard from '../../components/PostCard.astro';
 import { getPosts } from '../../data/posts';
 
 const posts = await getPosts();
-const categories = ['Come Follow Me', 'Missionary', 'Primary', 'Holidays'] as const;
-const groups = categories
-  .map((name) => ({ name, posts: posts.filter((p) => p.data.category === name) }))
-  .filter((g) => g.posts.length > 0);
+const categories = ['Come Follow Me', 'Missionary', 'Primary', 'Holidays'].filter((c) =>
+  posts.some((p) => p.data.category === c),
+);
 ---
 
 <Base title="Blog" description="Come Follow Me lesson ideas, missionary support, Primary helps, and Christ-centered holiday traditions.">
-  <section class="wrap section">
-    <p class="eyebrow">The blog</p>
-    <h1>Ideas for gospel-centered homes</h1>
-    <p class="muted lead">
-      Come Follow Me lesson ideas, missionary support, Primary helps, and Christ-centered holiday traditions,
-      each with a printable to go with it.
-    </p>
+  <section class="page-head">
+    <div class="wrap">
+      <p class="eyebrow" data-reveal>The blog</p>
+      <h1 data-reveal style="--d: 100ms">Ideas for gospel-centered homes</h1>
+      <p class="muted lead" data-reveal style="--d: 200ms">
+        Come Follow Me lesson ideas, missionary support, Primary helps, and Christ-centered holiday traditions,
+        each with a printable to go with it.
+      </p>
+    </div>
+  </section>
 
+  <section class="wrap">
     {posts.length === 0 && <p class="muted">The first posts are on their way.</p>}
 
-    {groups.map((group) => (
-      <section class="group">
-        <h2>{group.name}</h2>
-        <div class="grid grid--3">
-          {group.posts.map((post) => <PostCard post={post} />)}
-        </div>
-      </section>
-    ))}
+    {categories.length > 1 && (
+      <div class="chips" data-filters="blog-grid" role="group" aria-label="Filter by topic">
+        <button class="chip" type="button" data-filter="all" aria-pressed="true">All posts</button>
+        {categories.map((c) => (
+          <button class="chip" type="button" data-filter={c} aria-pressed="false">{c}</button>
+        ))}
+      </div>
+    )}
+
+    <div class="grid grid--3 grid--stagger" id="blog-grid">
+      {posts.map((post, i) => <PostCard post={post} delay={(i % 3) * 100} />)}
+    </div>
   </section>
 </Base>
 
 <style>
-  .lead { max-width: 640px; }
-  .group h2 { margin-top: 1.4em; }
+  .page-head { padding: 72px 0 8px; }
+  .page-head h1 { max-width: 760px; font-size: clamp(2.4rem, 5.4vw, 4rem); line-height: 1.05; }
+  .lead { max-width: 640px; font-size: 1.1rem; }
+  #blog-grid { margin-top: 36px; }
+  .chips + #blog-grid { margin-top: 0; }
 </style>
