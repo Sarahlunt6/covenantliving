@@ -187,20 +187,12 @@ const href = product?.etsyUrl || SITE.etsyShopUrl;
   const note = document.querySelector<HTMLElement>('[data-advent-note]');
 
   if (root && panel) {
-    const KEY = 'cl-advent-opened';
-    let opened: number[] = [];
+    // Every page load starts with all doors closed.
     try {
-      opened = JSON.parse(localStorage.getItem(KEY) ?? '[]');
+      localStorage.removeItem('cl-advent-opened');
     } catch {
-      opened = [];
+      /* storage blocked: nothing to clear */
     }
-    const save = () => {
-      try {
-        localStorage.setItem(KEY, JSON.stringify(opened));
-      } catch {
-        /* storage blocked: doors just won't stay open next visit */
-      }
-    };
 
     // In December (1–24) only today and earlier can open. Any other time, it's preview mode.
     const now = new Date();
@@ -240,8 +232,7 @@ const href = product?.etsyUrl || SITE.etsyShopUrl;
       const locked = inAdvent && day > today;
       door.classList.toggle('locked', locked);
       door.classList.toggle('today', day === today);
-      if (!locked && opened.includes(day)) door.classList.add('open');
-      door.setAttribute('aria-pressed', String(door.classList.contains('open')));
+      door.setAttribute('aria-pressed', 'false');
 
       door.addEventListener('click', () => {
         if (locked) {
@@ -254,10 +245,6 @@ const href = product?.etsyUrl || SITE.etsyShopUrl;
         doors.forEach((d) => d.classList.remove('selected'));
         door.classList.add('open', 'selected');
         door.setAttribute('aria-pressed', 'true');
-        if (!opened.includes(day)) {
-          opened.push(day);
-          save();
-        }
         show(door.dataset.title ?? '', `December ${day}`, door.dataset.text ?? '', door.dataset.ref ?? '', door.dataset.image ?? '', true);
         if (window.matchMedia('(max-width: 900px)').matches) {
           document.getElementById('advent-reading')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
