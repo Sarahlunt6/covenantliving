@@ -59,12 +59,12 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: 'missionary-mom-journal',
-    name: 'Missionary Mom Journal',
+    name: 'Missionary Mom Journal & Planner',
     section: 'Missionary Printables',
-    blurb: 'A place to record letters, milestones, and feelings while your missionary serves.',
-    price: '',
-    image: '',
-    etsyUrl: '',
+    blurb: 'Weekly journal pages, a care package planner, and countdown charts for every step of their mission.',
+    price: '$8.00',
+    image: '/images/products/missionary-mom-journal.webp',
+    etsyUrl: 'https://covenantliving.etsy.com/listing/4560113737',
   },
   {
     slug: 'missionary-countdown',
